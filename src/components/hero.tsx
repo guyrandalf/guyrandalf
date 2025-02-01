@@ -1,23 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { techStack } from "@/lib/stack";
 import { motion } from "framer-motion";
 import { Github, Mail, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
-
-const techStack = [
-  "Next.js",
-  "React",
-  "React Native",
-  "Node.js",
-  "TypeScript",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "AWS",
-  "Supabase",
-  "Laravel",
-  "Docker",
-];
 
 export default function Hero() {
   return (
@@ -67,16 +55,30 @@ export default function Hero() {
           </p>
 
           <div className="flex gap-4">
-            <Button className="group">
-              View Projects
-              <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <Button className="group" asChild>
+              <Link href="/projects">
+                View Projects
+                <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
-            <Button variant="outline" className="group">
-              <Mail className="mr-2 h-4 w-4" />
-              Contact Me
+            <Button variant="outline" className="group" asChild>
+              <a
+                href="mailto:guyrandalf93@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Mail className="mr-2 h-4 w-4" />
+                Contact Me
+              </a>
             </Button>
             <Button variant="ghost" className="px-3">
-              <Github className="h-5 w-5" />
+              <a
+                href="https://github.com/guyrandalf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="h-5 w-5" />
+              </a>
             </Button>
           </div>
 

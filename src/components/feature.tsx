@@ -38,7 +38,7 @@ const features = [
 
 const FeaturedSection = () => {
   return (
-    <section className="py-12">
+    <section className="py-12 mt-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

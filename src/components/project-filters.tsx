@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { projects } from "./project-data";
+import { projects } from "../data/projects";
 
 const filterCategories = [
   { id: "all", label: "All Projects", icon: null },

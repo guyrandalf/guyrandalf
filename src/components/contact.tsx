@@ -1,28 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 const socials = [
   {
     name: "Email",
-    href: "mailto:your@email.com",
+    href: "mailto:guyrandalf93@gmail.com",
     icon: Mail,
     description: "Drop me a line",
   },
   {
     name: "GitHub",
-    href: "https://github.com/yourusername",
+    href: "https://github.com/guyrandalf",
     icon: Github,
     description: "Check out my repos",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/yourusername",
+    href: "https://linkedin.com/in/randalf",
     icon: Linkedin,
     description: "Let's connect",
+  },
+  {
+    name: "X",
+    href: "https://x.com/randalfjs",
+    icon: Twitter,
+    description: "Let's explore",
   },
 ];
 
@@ -40,7 +45,7 @@ export default function ContactSection() {
         </p>
       </motion.div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-4">
         {socials.map((social, index) => (
           <motion.div
             key={social.name}

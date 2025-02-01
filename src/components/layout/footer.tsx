@@ -1,19 +1,17 @@
 import Link from "next/link";
 import { Github, Twitter, Linkedin } from "lucide-react";
-import Container from "../container";
+import Container from "./container";
 
 const routes = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const socials = [
-  { href: "https://github.com/yourusername", icon: Github, label: "Github" },
-  { href: "https://twitter.com/yourusername", icon: Twitter, label: "Twitter" },
+  { href: "https://github.com/guyrandalf", icon: Github, label: "Github" },
+  { href: "https://x.com/randalfjs", icon: Twitter, label: "Twitter" },
   {
-    href: "https://linkedin.com/in/yourusername",
+    href: "https://linkedin.com/in/randalf",
     icon: Linkedin,
     label: "LinkedIn",
   },
@@ -27,7 +25,7 @@ export default function Footer() {
           <div className="space-y-3">
             <h3 className="text-lg font-medium">Portfolio</h3>
             <p className="text-sm text-muted-foreground">
-              Showcasing my journey through web development
+              Showcasing my journey through software development
             </p>
           </div>
 
@@ -67,10 +65,11 @@ export default function Footer() {
 
         <div className="flex flex-col items-center justify-between border-t border-border/40 py-6 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Your Name. All rights reserved.
+            © {new Date().getFullYear()} Guy Randalf. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
-            Built with Next.js, Tailwind CSS, and shadcn/ui
+            Built with Next.js, Tailwind CSS, and shadcn/ui and just a few
+            sleepless night! 🌙
           </p>
         </div>
       </Container>

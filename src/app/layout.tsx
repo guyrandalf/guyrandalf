@@ -4,7 +4,9 @@ import "./globals.css";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import ThemeProvider from "@/components/theme-provider";
-import Container from "@/components/container";
+import Container from "@/components/layout/container";
+import Loading from "@/components/loading";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,31 +19,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Portfolio",
-  description: "Your portfolio description",
+  title: "Guy Randalf - Full Stack Developer",
+  description: "Full Stack Developer specializing in modern web technologies.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative min-h-screen">
+          <div className="relative flex min-h-screen flex-col antialiased">
             <Navbar />
-            <main className="pt-16">
-              <Container>{children}</Container>
-            </main>
+            <Suspense fallback={<Loading />}>
+              <main className="flex-1">
+                <Container>{children}</Container>
+              </main>
+            </Suspense>
             <Footer />
           </div>
         </ThemeProvider>

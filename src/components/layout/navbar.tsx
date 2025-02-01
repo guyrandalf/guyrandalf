@@ -5,14 +5,25 @@ import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { useState } from "react";
-import Container from "../container";
+import Container from "./container";
 import ModeToggle from "./theme-toggle";
+
+const routes = [
+  {
+    href: "/",
+    label: "Home",
+  },
+  {
+    href: "/projects",
+    label: "Projects",
+  },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background">
       <Container>
         <div className="flex h-14 max-w-screen-2xl items-center">
           <div className="mr-4 hidden md:flex">
@@ -20,12 +31,15 @@ export default function Navbar() {
               <span className="font-bold">Guy Randalf</span>
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium">
-              <Link
-                href="/"
-                className="transition-colors hover:text-foreground/80"
-              >
-                Home
-              </Link>
+              {routes.map((route) => (
+                <Link
+                  key={route.href}
+                  href={route.href}
+                  className="transition-colors hover:text-foreground/80"
+                >
+                  {route.label}
+                </Link>
+              ))}
             </nav>
           </div>
 
@@ -41,13 +55,16 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent side="left" className="pr-0">
               <nav className="flex flex-col space-y-4">
-                <Link
-                  href="/"
-                  className="text-sm font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Home
-                </Link>
+                {routes.map((route) => (
+                  <Link
+                    key={route.href}
+                    href={route.href}
+                    className="text-sm font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {route.label}
+                  </Link>
+                ))}
               </nav>
             </SheetContent>
           </Sheet>

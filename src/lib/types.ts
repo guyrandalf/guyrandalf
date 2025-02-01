@@ -1,10 +1,20 @@
 export type ProjectCategory =
   | "auth"
-  | "payment"
+  | "forms"
+  | "ui"
+  | "animations"
+  | "api-integration"
   | "dashboard"
-  | "chat"
-  | "cms"
-  | "search";
+  | "navigation"
+  | "input-validation"
+  | "toast-notifications"
+  | "modal-component"
+  | "pagination-ui"
+  | "table-component"
+  | "dashboard-cards"
+  | "filter-search"
+  | "sidebar-navigation"
+  | "multi-step-form";
 
 export interface Project {
   id: ProjectCategory;
@@ -12,6 +22,5 @@ export interface Project {
   description: string;
   tags: string[];
   github?: string;
-  image: string;
   category: ProjectCategory;
 }

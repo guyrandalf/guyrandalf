@@ -23,7 +23,7 @@ export default function Footer() {
       <Container>
         <div className="grid grid-cols-1 gap-8 py-12 md:grid-cols-3">
           <div className="space-y-3">
-            <h3 className="text-lg font-medium">Portfolio</h3>
+            <h3 className="text-lg font-medium">Guy Randalf</h3>
             <p className="text-sm text-muted-foreground">
               Showcasing my journey through software development
             </p>
@@ -67,9 +67,9 @@ export default function Footer() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Guy Randalf. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground sm:text-center">
             Built with Next.js, Tailwind CSS, and shadcn/ui and just a few
-            sleepless night! 🌙
+            sleepless nights! 🌙
           </p>
         </div>
       </Container>

@@ -7,6 +7,7 @@ import ThemeProvider from "@/components/theme-provider";
 import Container from "@/components/layout/container";
 import Loading from "@/components/loading";
 import { Suspense } from "react";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({
               </main>
             </Suspense>
             <Footer />
+            <ToastContainer />
           </div>
         </ThemeProvider>
       </body>

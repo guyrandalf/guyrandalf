@@ -3,32 +3,73 @@
 import { db } from "@/lib/db";
 import { signupSchema } from "@/lib/validations/auth";
 import { supabase } from "@/lib/supabase";
+import { revalidatePath } from "next/cache";
+import bcrypt from "bcryptjs";
 
-export async function signup(values: SignupValues) {
+interface State {
+  message?: string;
+  errors?: {
+    firstName?: string[];
+    lastName?: string[];
+    email?: string[];
+    password?: string[];
+  };
+}
+
+export async function signup(prevState: State, formData: FormData) {
   try {
-    const validated = signupSchema.parse(values);
+    if (!formData) {
+      throw new Error("Form data is required");
+    }
+
+    const rawFormData = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    const validated = signupSchema.safeParse(rawFormData);
+
+    if (!validated.success) {
+      return {
+        errors: validated.error.flatten().fieldErrors,
+      };
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(validated.data.password, 10);
 
     // Create Supabase auth user
     const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: validated.email,
-      password: validated.password,
+      email: validated.data.email,
+      password: validated.data.password,
     });
 
-    if (authError) throw new Error(authError.message);
+    if (authError) {
+      return {
+        message: authError.message,
+      };
+    }
 
-    // Create user in database
-    const user = await db.user.create({
-      data: {
-        id: authData.user!.id,
-        firstName: validated.firstName,
-        lastName: validated.lastName,
-        email: validated.email,
-        password: validated.password, // Note: In production, hash password
-      },
-    });
+    if (authData.user) {
+      // Create user in database with hashed password
+      await db.user.create({
+        data: {
+          id: authData.user.id,
+          firstName: validated.data.firstName,
+          lastName: validated.data.lastName,
+          email: validated.data.email,
+          password: hashedPassword, // Store hashed password
+        },
+      });
 
-    return { success: true };
+      revalidatePath("/projects/auth");
+      return { message: "Account created successfully!" };
+    }
   } catch (error) {
-    return { error: error.message };
+    return {
+      message: error instanceof Error ? error.message : "Something went wrong",
+    };
   }
 }

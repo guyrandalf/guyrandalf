@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuthStore } from "@/store/auth-store";
 import { signupSchema, type SignupValues } from "@/lib/validations/auth";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,17 +23,33 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationErrors({});
     try {
-      const validated = signupSchema.parse(values);
-      const result = await signup(validated);
-      if (result.error) {
-        throw new Error(result.error);
-      } else {
-        toast.success("User account created!");
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const result = await signup(formData);
+
+      if (result?.message) {
+        toast.success(result.message);
+        setValues({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+      }
+
+      if (result?.errors) {
+        setValidationErrors(result.errors);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
         setValidationErrors(error.formErrors.fieldErrors);
+      } else {
+        toast.error(error.message || "Something went wrong");
       }
     }
   };

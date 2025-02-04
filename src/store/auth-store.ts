@@ -12,9 +12,9 @@ interface User {
 interface AuthStore {
   loading: boolean;
   error: string | null;
+  user: User | null;
   signup: (formData: FormData) => Promise<any>;
   signin: (formData: FormData) => Promise<any>;
-  setUser: (user: User | null) => void;
   signout: () => Promise<void>;
 }
 
@@ -22,8 +22,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   loading: false,
   error: null,
-
-  setUser: (user) => set({ user }),
 
   signup: async (formData: FormData) => {
     try {

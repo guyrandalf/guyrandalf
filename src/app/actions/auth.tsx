@@ -16,51 +16,45 @@ interface State {
   };
 }
 
-export async function signup(prevState: State, formData: FormData) {
+export async function signup(prevState: any, formData: FormData) {
   try {
-    if (!formData) {
-      throw new Error("Form data is required");
-    }
-
-    const rawFormData = {
+    const values = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       email: formData.get("email"),
       password: formData.get("password"),
     };
 
-    const validated = signupSchema.safeParse(rawFormData);
+    const validated = signupSchema.parse(values);
 
-    if (!validated.success) {
-      return {
-        errors: validated.error.flatten().fieldErrors,
-      };
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(validated.data.password, 10);
-
-    // Create Supabase auth user
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: validated.data.email,
-      password: validated.data.password,
+    // Check if email exists first
+    const existingUser = await db.user.findUnique({
+      where: { email: validated.email },
     });
 
-    if (authError) {
+    if (existingUser) {
       return {
-        message: authError.message,
+        message: "This email is already registered",
       };
     }
 
+    const hashedPassword = await bcrypt.hash(validated.data.password, 10);
+
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: validated.email,
+      password: validated.password,
+    });
+
+    if (authError) throw new Error(authError.message);
+
     if (authData.user) {
-      // Create user in database with hashed password
       await db.user.create({
         data: {
           id: authData.user.id,
-          firstName: validated.data.firstName,
-          lastName: validated.data.lastName,
-          email: validated.data.email,
-          password: hashedPassword, // Store hashed password
+          firstName: validated.firstName,
+          lastName: validated.lastName,
+          email: validated.email,
+          password: hashedPassword,
         },
       });
 
@@ -68,8 +62,16 @@ export async function signup(prevState: State, formData: FormData) {
       return { message: "Account created successfully!" };
     }
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // P2002 is the error code for unique constraint violations
+      if (error.code === "P2002") {
+        return {
+          message: "This email is already registered",
+        };
+      }
+    }
     return {
-      message: error instanceof Error ? error.message : "Something went wrong",
+      message: "Something went wrong. Please try again.",
     };
   }
 }

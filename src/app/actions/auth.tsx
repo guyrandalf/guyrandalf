@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { signupSchema } from "@/lib/validations/auth";
+import { signupSchema, signinSchema } from "@/lib/validations/auth";
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
@@ -66,6 +66,68 @@ export async function signup(prevState: State, formData: FormData) {
 
       revalidatePath("/projects/auth");
       return { message: "Account created successfully!" };
+    }
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : "Something went wrong",
+    };
+  }
+}
+
+export async function signin(prevState: State, formData: FormData) {
+  try {
+    if (!formData) {
+      throw new Error("Form data is required");
+    }
+
+    const rawFormData = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    const validated = signinSchema.safeParse(rawFormData);
+
+    if (!validated.success) {
+      return {
+        errors: validated.error.flatten().fieldErrors,
+      };
+    }
+
+    // Login to get auth user
+    const { data: authData, error: authError } =
+      await supabase.auth.signInWithPassword({
+        email: validated.data.email,
+        password: validated.data.password,
+      });
+
+    if (authError) {
+      return {
+        message: authError.message,
+      };
+    }
+
+    if (authData.user) {
+      // Create user in database with hashed password
+      const user = await db.user.findUnique({
+        where: { id: authData.user.id },
+      });
+
+      if (!user) {
+        return {
+          message: "User not found",
+        };
+      }
+
+      revalidatePath("/projects/auth");
+      return {
+        message: "Logged in successfully!",
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+      };
     }
   } catch (error) {
     return {

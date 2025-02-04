@@ -1,5 +1,3 @@
-"use client";
-
 import AboutSection from "@/components/about";
 import ContactSection from "@/components/contact";
 import ContactCTA from "@/components/cta";

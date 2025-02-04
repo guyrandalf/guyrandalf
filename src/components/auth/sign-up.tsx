@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAuthStore } from "@/store/auth-store";
-import { signupSchema, type SignupValues } from "@/lib/validations/auth";
+import { type SignupValues } from "@/lib/validations/auth";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

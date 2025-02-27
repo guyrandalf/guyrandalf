@@ -20,32 +20,6 @@ export const projects: Project[] = [
     category: "ui",
   },
   {
-    id: "input-validation",
-    title: "Form Validation with Zod",
-    description:
-      "A form demonstrating Zod validation for various input fields.",
-    tags: ["Next.js", "TypeScript", "Zod", "Shadcn", "Tailwind CSS"],
-    github: "https://github.com/yourusername/input-validation",
-    category: "forms",
-  },
-  {
-    id: "toast-notifications",
-    title: "Toast Notifications",
-    description: "A reusable toast notification system using Shadcn.",
-    tags: ["Next.js", "TypeScript", "Shadcn", "Tailwind CSS"],
-    github: "https://github.com/yourusername/toast-notifications",
-    category: "ui",
-  },
-  {
-    id: "modal-component",
-    title: "Custom Modal Component",
-    description:
-      "A reusable modal component with animations and accessibility support.",
-    tags: ["Next.js", "TypeScript", "Shadcn", "Tailwind CSS"],
-    github: "https://github.com/yourusername/modal-component",
-    category: "ui",
-  },
-  {
     id: "pagination-ui",
     title: "Pagination Component",
     description:

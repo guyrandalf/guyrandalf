@@ -62,9 +62,10 @@ export async function signup(prevState: any, formData: FormData) {
       revalidatePath("/projects/auth");
       return { message: "Account created successfully!" };
     }
+
+    return { message: "Failed to create account" }; // Fallback message
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
-      // P2002 is the error code for unique constraint violations
       if (error.code === "P2002") {
         return {
           message: "This email is already registered",

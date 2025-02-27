@@ -7,7 +7,7 @@ export const projects: Project[] = [
     description:
       "A reusable authentication form with email/password and social login support.",
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
-    github: "https://github.com/guyrandalf/guyrandalf",
+    github: "https://github.com/guyrandalf/guyrandalf/tree/main/src/app/projects/auth",
     category: "auth",
   },
   {
@@ -16,7 +16,7 @@ export const projects: Project[] = [
     description:
       "A search and filter UI for refining displayed data dynamically.",
     tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
-    github: "https://github.com/yourusername/filter-search",
+    github: "https://github.com/guyrandalf/guyrandalf/tree/main/src/app/projects/filter-search",
     category: "ui",
   },
   {
@@ -25,7 +25,7 @@ export const projects: Project[] = [
     description:
       "A customizable pagination component for handling large data sets.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/yourusername/pagination-ui",
+    github: "https://github.com/guyrandalf/guyrandalf/tree/main/src/app/projects/pagination-ui",
     category: "ui",
   },
   {

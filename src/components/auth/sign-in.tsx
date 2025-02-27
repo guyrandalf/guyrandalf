@@ -1,46 +1,51 @@
 "use client";
 
-import { useState } from "react";
-import { useAuthStore } from "@/store/auth-store";
-import { type SigninValues } from "@/lib/validations/auth";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { signin } from "@/app/actions/auth";
+import { supabaseClient } from "@/lib/supabase";
 
-export default function Signin() {
-  const { signin, loading, error } = useAuthStore();
-  const [values, setValues] = useState<SigninValues>({
+export default function SignIn() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState({
     email: "",
     password: "",
   });
-  const [validationErrors, setValidationErrors] = useState<
-    Partial<SigninValues>
-  >({});
-  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setValidationErrors({});
+    setLoading(true);
+
     try {
       const formData = new FormData();
-      Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
+      formData.append("email", values.email);
+      formData.append("password", values.password);
 
-      const result = await signin(formData);
+      const result = await signin(null, formData);
 
-      if (result?.message) {
-        if (result.user) {
-          toast.success(result.message);
-          router.push("/projects/auth/profile");
-        } else {
-          toast.error(result.message);
-        }
+      if (result?.session) {
+        // Set client-side session
+        await supabaseClient.auth.setSession({
+          access_token: result.session.access_token,
+          refresh_token: result.session.refresh_token,
+        });
+
+        toast.success(result.message);
+        router.refresh();
+        router.push("/projects/auth/profile");
+      } else {
+        toast.error(result?.message || "Failed to sign in");
       }
     } catch (error) {
-      toast.error(error.message || "Something went wrong");
+      console.error("Sign in error:", error);
+      toast.error("An error occurred during sign in");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,6 +55,7 @@ export default function Signin() {
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
+          name="email"
           type="email"
           value={values.email}
           onChange={(e) => setValues({ ...values, email: e.target.value })}
@@ -60,6 +66,7 @@ export default function Signin() {
         <Label htmlFor="password">Password</Label>
         <Input
           id="password"
+          name="password"
           type="password"
           value={values.password}
           onChange={(e) => setValues({ ...values, password: e.target.value })}
@@ -67,7 +74,7 @@ export default function Signin() {
         />
       </div>
       <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? "Loading..." : "Sign In"}
+        {loading ? "Signing in..." : "Sign In"}
       </Button>
     </form>
   );

@@ -5,6 +5,7 @@ import { signupSchema, signinSchema } from "@/lib/validations/auth";
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
+import { Prisma } from "@prisma/client";
 
 interface State {
   message?: string;
@@ -38,7 +39,7 @@ export async function signup(prevState: any, formData: FormData) {
       };
     }
 
-    const hashedPassword = await bcrypt.hash(validated.data.password, 10);
+    const hashedPassword = await bcrypt.hash(validated.password, 10);
 
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: validated.email,
@@ -95,7 +96,6 @@ export async function signin(prevState: State, formData: FormData) {
       };
     }
 
-    // Login to get auth user
     const { data: authData, error: authError } =
       await supabase.auth.signInWithPassword({
         email: validated.data.email,
@@ -108,30 +108,37 @@ export async function signin(prevState: State, formData: FormData) {
       };
     }
 
-    if (authData.user) {
-      // Create user in database with hashed password
+    if (authData.user && authData.session) {
       const user = await db.user.findUnique({
         where: { id: authData.user.id },
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
       });
 
       if (!user) {
-        return {
-          message: "User not found",
-        };
+        return { message: "User not found" };
       }
 
-      revalidatePath("/projects/auth");
+      // Set cookie session
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token: authData.session.access_token,
+        refresh_token: authData.session.refresh_token,
+      });
+
+      if (sessionError) throw sessionError;
+
       return {
         message: "Logged in successfully!",
-        user: {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        },
+        user,
+        session: authData.session,
       };
     }
   } catch (error) {
+    console.error("Sign in error:", error);
     return {
       message: error instanceof Error ? error.message : "Something went wrong",
     };

@@ -9,6 +9,14 @@ import { useRouter } from "next/navigation";
 import { signin } from "@/app/actions/auth";
 import { supabaseClient } from "@/lib/supabase";
 
+interface FormState {
+  message?: string;
+  errors?: {
+    email?: string[];
+    password?: string[];
+  };
+}
+
 export default function SignIn() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -26,7 +34,7 @@ export default function SignIn() {
       formData.append("email", values.email);
       formData.append("password", values.password);
 
-      const result = await signin(null, formData);
+      const result = await signin({} as FormState, formData);
 
       if (result?.session) {
         // Set client-side session

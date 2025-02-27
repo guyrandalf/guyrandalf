@@ -77,7 +77,7 @@ export async function signup(prevState: any, formData: FormData) {
   }
 }
 
-export async function signin(prevState: State, formData: FormData) {
+export async function signin(prevState: State | null, formData: FormData) {
   try {
     if (!formData) {
       throw new Error("Form data is required");

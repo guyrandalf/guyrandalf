@@ -11,19 +11,24 @@ interface User {
 
 interface AuthStore {
   user: User | null
+  loading: boolean
+  error: string | null
   setUser: (user: User | null) => void
+  signup: (formData: FormData) => Promise<{ message: string } | undefined>;
   signout: () => Promise<void>
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
+  loading: false,
+  error: null,
   setUser: (user) => set({ user }),
   signup: async (formData: FormData) => {
     try {
       set({ loading: true, error: null });
       const result = await signup(null, formData);
       return result;
-    } catch (error) {
+    } catch (error: any) {
       set({ error: error.message });
       throw error;
     } finally {

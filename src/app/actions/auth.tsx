@@ -1,11 +1,11 @@
 "use server";
 
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { db } from "@/lib/db";
 import { signupSchema, signinSchema } from "@/lib/validations/auth";
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
-import { Prisma } from "@prisma/client";
 
 interface State {
   message?: string;
@@ -63,7 +63,7 @@ export async function signup(prevState: any, formData: FormData) {
       return { message: "Account created successfully!" };
     }
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error instanceof PrismaClientKnownRequestError) {
       // P2002 is the error code for unique constraint violations
       if (error.code === "P2002") {
         return {

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { signin } from "@/app/actions/auth";
+import { signin } from "@/actions/auth";
 import { supabaseClient } from "@/lib/supabase";
 
 interface FormState {

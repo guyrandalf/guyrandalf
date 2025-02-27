@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { supabase, supabaseClient } from "../lib/supabase";
-import { signup } from "@/app/actions/auth";
+import { signup } from "@/actions/auth";
 
 interface User {
   id: string;

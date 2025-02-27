@@ -11,6 +11,15 @@ export const projects: Project[] = [
     category: "auth",
   },
   {
+    id: "filter-search",
+    title: "Search & Filter Component",
+    description:
+      "A search and filter UI for refining displayed data dynamically.",
+    tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+    github: "https://github.com/yourusername/filter-search",
+    category: "ui",
+  },
+  {
     id: "input-validation",
     title: "Form Validation with Zod",
     description:
@@ -62,15 +71,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/yourusername/dashboard-cards",
     category: "dashboard",
-  },
-  {
-    id: "filter-search",
-    title: "Search & Filter Component",
-    description:
-      "A search and filter UI for refining displayed data dynamically.",
-    tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
-    github: "https://github.com/yourusername/filter-search",
-    category: "ui",
   },
   {
     id: "sidebar-navigation",

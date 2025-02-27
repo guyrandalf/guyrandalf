@@ -32,7 +32,8 @@ export default function Signup() {
 
       const result = await signup(formData);
 
-      if (result?.message) {
+      // Handle all responses (success or failure) via message
+      if (result.message === "Account created successfully!") {
         toast.success(result.message);
         setValues({
           firstName: "",
@@ -40,16 +41,17 @@ export default function Signup() {
           email: "",
           password: "",
         });
-      }
-
-      if (result?.errors) {
-        setValidationErrors(result.errors);
+      } else {
+        toast.error(result.message); // e.g., "This email is already registered"
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setValidationErrors(error.formErrors.fieldErrors);
+        // Handle Zod validation errors
+        setValidationErrors(
+          error.formErrors.fieldErrors as Partial<SignupValues>
+        );
       } else {
-        toast.error(error.message || "Something went wrong");
+        toast.error((error as Error).message || "Something went wrong");
       }
     }
   };

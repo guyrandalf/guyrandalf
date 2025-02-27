@@ -14,7 +14,7 @@ interface AuthStore {
   loading: boolean
   error: string | null
   setUser: (user: User | null) => void
-  signup: (formData: FormData) => Promise<{ message: string } | undefined>;
+  signup: (formData: FormData) => Promise<{ message: string }>;
   signout: () => Promise<void>
 }
 

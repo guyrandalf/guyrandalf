@@ -21,6 +21,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
   todos     Todo[]
+  chats     Chat[]
 }
 
 model Todo {
@@ -32,6 +33,17 @@ model Todo {
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Chat {
+  id        String   @id @default(uuid())
+  message   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }

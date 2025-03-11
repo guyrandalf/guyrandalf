@@ -13,12 +13,8 @@ export default function ProjectGridHome() {
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h2 className="text-3xl font-bold tracking-tight">
-            Featured Projects
+            Featured Conceptual Projects
           </h2>
-          <p className="text-muted-foreground">
-            A collection of projects demonstrating various web development
-            concepts and technologies.
-          </p>
         </div>
         <Button variant="ghost" asChild>
           <Link href="/projects" className="group">

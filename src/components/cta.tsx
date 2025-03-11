@@ -25,17 +25,6 @@ const ContactCTA = () => {
         </p>
 
         <div className="mt-8 flex justify-center gap-4">
-          <Button size="lg" asChild>
-            <a
-              href="mailto:guyrandalf93@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              Contact Me
-            </a>
-          </Button>
-
           <Button variant="outline" size="lg" asChild>
             <a
               href="https://github.com/guyrandalf"

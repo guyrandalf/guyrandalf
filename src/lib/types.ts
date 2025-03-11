@@ -14,7 +14,21 @@ export type ProjectCategory =
   | "dashboard-cards"
   | "filter-search"
   | "sidebar-navigation"
-  | "multi-step-form";
+  | "multi-step-form"
+  | "todo-crud"
+  | "real-time-chat"
+  | "file-upload"
+  | "user-dashboard"
+  | "admin-dashboard"
+  | "e-commerce"
+  | "blog"
+  | "api-crud"
+  | "notifications"
+  | "social-media"
+  | "maps"
+  | "charts"
+  | "fullstack"
+  | "ecommerce-cart"
 
 export interface Project {
   id: ProjectCategory;

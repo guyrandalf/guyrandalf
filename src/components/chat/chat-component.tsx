@@ -126,7 +126,7 @@ export default function ChatComponent({
           prev.filter((msg) => msg.id !== optimisticMessage.id)
         );
         toast.error(result.error);
-      } else {
+      } else if (result.chat) {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === optimisticMessage.id ? result.chat : msg

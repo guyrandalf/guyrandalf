@@ -44,7 +44,6 @@ export default function ChatComponent({
           table: "chat",
         },
         async (payload) => {
-          console.log("Real-time payload:", payload); // Debug payload
           const newMessage = payload.new as {
             id: string;
             message: string;

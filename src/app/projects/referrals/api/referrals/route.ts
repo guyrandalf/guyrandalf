@@ -14,6 +14,7 @@ type RawReferral = {
     location: string;
     status: "Referred" | "Pending";
     partners: { name: string }[] | null;
+    discounts: { discountCode: string; products: { name: string } } | null;
   };
   
   type FormattedReferral = {
@@ -22,7 +23,13 @@ type RawReferral = {
     location: string;
     partner: string | null;
     status: "Referred" | "Pending";
+    discountCode?: string;
+  productName?: string;
   };
+
+  function generateDiscountCode(referralId: number): string {
+    return `REF${referralId}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+  }
 
 export async function POST(req: NextRequest) {
   try {
@@ -49,22 +56,55 @@ export async function POST(req: NextRequest) {
     const status = partner ? "Referred" : "Pending";
 
     // Insert the referral into the database
-    const { error: insertError } = await supabase.from("referrals").insert({
+    const { data: referral, error: insertError } = await supabase.from("referrals").insert({
       leadName: name,
       service,
       location,
       partnerId: partner?.id || null,
       status,
-    });
+    })
+    .select("id, leadName, status")
+      .single();
 
     if (insertError) throw insertError;
 
+    let discountCode: string | undefined;
+    let productName: string | undefined;
+
+    if (status === "Referred") {
+      const { data: product, error: productError } = await supabase
+        .from("products")
+        .select("id, name")
+        .limit(1)
+        .single();
+
+      if (productError || !product) throw new Error("No products available");
+
+      discountCode = generateDiscountCode(referral.id);
+
+      const { error: discountError } = await supabase
+        .from("discounts")
+        .insert({
+          referralId: referral.id,
+          productId: product.id,
+          discountCode,
+        });
+
+      if (discountError) throw discountError;
+
+      productName = product.name;
+    }
+
     const response: ReferralResponse = {
+      id: referral
+        ? referral.id.toString()
+        : "0",
       leadName: name,
       partner: partner?.name || null,
       status,
+      ...(discountCode && { discountCode }),
+      ...(productName && { productName }),
     };
-
     // Return response
     return NextResponse.json(response);
   } catch (error) {
@@ -76,42 +116,66 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
 export async function GET() {
-    try {
-      const { data, error } = await supabase
-        .from("referrals")
-        .select(
-          `
-          leadName,
-          service,
-          location,
-          status,
-          partners (
+  try {
+    const { data, error } = await supabase
+      .from("referrals")
+      .select(`
+        *,
+        partners:partnerId (
+          name
+        ),
+        discounts (
+          discountCode,
+          products:productId (
             name
           )
-          `
         )
-        .order("id", { ascending: false });
-  
-      if (error) throw error;
-  
-      const formattedData = (data as RawReferral[]).map(
-        (referral): FormattedReferral => ({
-          leadName: referral.leadName,
-          service: referral.service,
-          location: referral.location,
-          partner: referral.partners?.[0]?.name || null,
-          status: referral.status,
-        })
-      );
-  
-      return NextResponse.json(formattedData || []);
-    } catch (error) {
-      console.error("Error fetching referrals:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch referrals" },
-        { status: 500 }
-      );
-    }
+      `)
+      .order("id", { ascending: false });
+
+    if (error) throw error;
+
+    const formattedData = data?.map(referral => ({
+      id: referral.id,
+      leadName: referral.leadName,
+      partner: referral.partners?.name || null,
+      status: referral.status,
+      discountCode: referral.discounts?.[0]?.discountCode,
+      productName: referral.discounts?.[0]?.products?.name
+    }));
+
+    return NextResponse.json(formattedData || []);
+  } catch (error) {
+    console.error("Error fetching referrals:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch referrals" },
+      { status: 500 }
+    );
   }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { id } = await req.json();
+
+    const { error: discountError } = await supabase
+      .from("discounts")
+      .delete()
+      .eq("referralId", id);
+
+    if (discountError) throw discountError;
+
+    const { error: referralError } = await supabase.from("referrals").delete().eq("id", id);
+
+    if (referralError) throw referralError;
+
+    return NextResponse.json({ message: "Lead deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting lead:", error);
+    return NextResponse.json(
+      { error: "Failed to delete lead" },
+      { status: 500 }
+    );
+  }
+}

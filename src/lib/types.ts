@@ -41,7 +41,10 @@ export interface Project {
 }
 
 export type ReferralResponse = {
+  id: string;
   leadName: string;
   partner: string | null;
   status: "Referred" | "Pending";
+  discountCode?: string;
+  productName?: string;
 };

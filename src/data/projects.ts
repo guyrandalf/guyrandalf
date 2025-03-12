@@ -11,6 +11,15 @@ export const projects: Project[] = [
     category: "auth",
   },
   {
+    id: "referrals",
+    title: "Referral Lead Connector",
+    description:
+      "A simple demo of submitting and matching service leads, inspired by Baton Leads' referral network.",
+    tags: ["Next.js", "TypeScript", "Postgresql", "Tailwind CSS", "Supabase"],
+    github: "https://github.com/guyrandalf/guyrandalf/tree/main/src/app/projects/referrals",
+    category: "referrals",
+  },
+  {
     id: "filter-search",
     title: "Search & Filter Component",
     description:

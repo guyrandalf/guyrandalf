@@ -29,6 +29,7 @@ export type ProjectCategory =
   | "charts"
   | "fullstack"
   | "ecommerce-cart"
+  | "referrals"
 
 export interface Project {
   id: ProjectCategory;

@@ -15,8 +15,8 @@ export async function middleware(request: NextRequest) {
     if (error) throw error;
 
     // Debug logs
-    console.log('Current path:', request.nextUrl.pathname);
-    console.log('Session:', session);
+    // console.log('Current path:', request.nextUrl.pathname);
+    // console.log('Session:', session);
 
     // Protect profile route
     if (request.nextUrl.pathname.startsWith('/projects/auth/profile')) {

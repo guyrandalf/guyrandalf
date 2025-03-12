@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import type { ReferralResponse } from "@/lib/types";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -58,12 +59,14 @@ export async function POST(req: NextRequest) {
 
     if (insertError) throw insertError;
 
-    // Return response
-    return NextResponse.json({
+    const response: ReferralResponse = {
       leadName: name,
       partner: partner?.name || null,
       status,
-    });
+    };
+
+    // Return response
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Error processing lead:", error);
     return NextResponse.json(
@@ -98,7 +101,7 @@ export async function GET() {
           leadName: referral.leadName,
           service: referral.service,
           location: referral.location,
-          partner: referral.partners?.name || null,
+          partner: referral.partners?.[0]?.name || null,
           status: referral.status,
         })
       );

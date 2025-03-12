@@ -39,3 +39,9 @@ export interface Project {
   github?: string;
   category: ProjectCategory;
 }
+
+export type ReferralResponse = {
+  leadName: string;
+  partner: string | null;
+  status: "Referred" | "Pending";
+};

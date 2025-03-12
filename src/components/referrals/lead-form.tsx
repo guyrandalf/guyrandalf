@@ -10,17 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "react-toastify";
+import type { ReferralResponse } from "@/lib/types";
 
 type Lead = {
   name: string;
   service: string;
   location: string;
-};
-
-type ReferralResponse = {
-  leadName: string;
-  partnerName: string | null;
-  status: "Referred" | "Pending";
 };
 
 type LeadFormProps = {

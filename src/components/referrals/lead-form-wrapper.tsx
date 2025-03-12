@@ -2,21 +2,17 @@
 import { useState } from "react";
 import LeadForm from "@/components/referrals/lead-form";
 import ReferralResult from "@/components/referrals/referral-result";
-
-type Referral = {
-  leadName: string;
-  partner: string | null;
-  status: "Referred" | "Pending";
-};
+import type { ReferralResponse } from "@/lib/types";
 
 export default function LeadFormWrapper({
   initialReferrals,
 }: {
-  initialReferrals: Referral[];
+  initialReferrals: ReferralResponse[];
 }) {
-  const [referrals, setReferrals] = useState<Referral[]>(initialReferrals);
+  const [referrals, setReferrals] =
+    useState<ReferralResponse[]>(initialReferrals);
 
-  const handleLeadSubmitted = (referral: Referral) => {
+  const handleLeadSubmitted = (referral: ReferralResponse) => {
     setReferrals((prev) => [referral, ...prev]);
   };
 

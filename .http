@@ -2,4 +2,6 @@
 
 # { "name": "John Doe", "service": "plumbing", "location": "NY" }
 
-GET http://localhost:3001/projects/referrals/api/referrals
+# GET http://localhost:3001/projects/referrals/api/referrals
+
+# POST http://localhost:3001/mobile/api/auth/register

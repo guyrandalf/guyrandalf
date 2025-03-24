@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       viewport={{ once: true }}
     >
       <Card className="group overflow-hidden transition-colors hover:border-primary">
-        <Link href={`/projects/${project.id}`} className="block">
+        <Link href={`/projects/${project.slug}`} className="block">
           <CardContent className="p-4">
             <h3 className="text-xl font-semibold">{project.title}</h3>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -41,7 +41,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </Link>
         <CardFooter className="flex justify-between p-4">
           <Link
-            href={`/projects/${project.id}`}
+            href={`/projects/${project.slug}`}
             className="flex items-center text-sm text-primary"
           >
             View Demo

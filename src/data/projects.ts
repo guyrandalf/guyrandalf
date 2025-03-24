@@ -2,8 +2,9 @@ import { Project } from "@/lib/types";
 
 export const projects: Project[] = [
   {
-    id: "auth",
+    id: 1,
     title: "Authentication Form",
+    slug: "auth",
     description:
       "A reusable authentication form with email/password and social login support.",
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
@@ -11,8 +12,9 @@ export const projects: Project[] = [
     category: "auth",
   },
   {
-    id: "referrals",
+    id: 2,
     title: "Referral Lead Connector",
+    slug: "referrals",
     description:
       "A simple demo of submitting and matching service leads, inspired by Baton Leads' referral network.",
     tags: ["Next.js", "TypeScript", "Postgresql", "Tailwind CSS", "Supabase"],
@@ -20,17 +22,19 @@ export const projects: Project[] = [
     category: "referrals",
   },
   {
-    id: "filter-search",
+    id: 3,
     title: "Search & Filter Component",
+    slug: "filter-search",
     description:
       "A search and filter UI for refining displayed data dynamically.",
     tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
     github: "https://github.com/guyrandalf/guyrandalf/tree/main/src/app/projects/filter-search",
-    category: "ui",
+    category: "search",
   },
   {
-    id: "pagination-ui",
+    id: 4,
     title: "Pagination Component",
+    slug: "pagination-ui",
     description:
       "A customizable pagination component for handling large data sets.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
@@ -38,8 +42,9 @@ export const projects: Project[] = [
     category: "ui",
   },
   {
-    id: "todo-crud",
+    id: 5,
     title: "Todo List with CRUD",
+    slug: "todo-crud",
     description:
       "A full-stack todo list app with create, read, update, and delete operations, stored in a database.",
     tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
@@ -47,57 +52,13 @@ export const projects: Project[] = [
     category: "fullstack",
   },
   {
-    id: "real-time-chat",
+    id: 6,
     title: "Real-Time Chat",
+    slug: "real-time-chat",
     description:
       "A chat component with real-time messaging using Supabase’s real-time database subscriptions.",
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "WebSocket"],
     github: "https://github.com/yourusername/real-time-chat",
-    category: "fullstack",
-  },
-  {
-    id: "file-upload",
-    title: "File Upload Manager",
-    description:
-      "A file upload system with server-side storage and retrieval using Supabase storage and Prisma metadata tracking.",
-    tags: ["Next.js", "TypeScript", "Supabase", "Prisma", "Tailwind CSS"],
-    github: "https://github.com/yourusername/file-upload",
-    category: "fullstack",
-  },
-  {
-    id: "user-dashboard",
-    title: "User Dashboard",
-    description:
-      "A dashboard displaying user-specific data (e.g., profile, stats) fetched from a server API with role-based access.",
-    tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS", "Server Actions"],
-    github: "https://github.com/yourusername/user-dashboard",
-    category: "fullstack",
-  },
-  {
-    id: "api-crud",
-    title: "RESTful API CRUD Interface",
-    description:
-      "A UI for interacting with a custom Next.js API route for CRUD operations on a resource (e.g., blog posts).",
-    tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS", "API Routes"],
-    github: "https://github.com/yourusername/api-crud",
-    category: "fullstack",
-  },
-  {
-    id: "notifications",
-    title: "Notification System",
-    description:
-      "A notification component with server-side generation and client-side polling or real-time updates.",
-    tags: ["Next.js", "TypeScript", "Supabase", "Prisma", "Tailwind CSS"],
-    github: "https://github.com/yourusername/notifications",
-    category: "fullstack",
-  },
-  {
-    id: "ecommerce-cart",
-    title: "E-commerce Cart",
-    description:
-      "A shopping cart with server-side session management and database-backed order tracking.",
-    tags: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS", "Server Actions"],
-    github: "https://github.com/yourusername/ecommerce-cart",
-    category: "fullstack",
+    category: "chat",
   },
 ];

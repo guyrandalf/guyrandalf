@@ -1,39 +1,15 @@
 export type ProjectCategory =
   | "auth"
-  | "forms"
-  | "ui"
-  | "animations"
-  | "api-integration"
-  | "dashboard"
-  | "navigation"
-  | "input-validation"
-  | "toast-notifications"
-  | "modal-component"
-  | "pagination-ui"
-  | "table-component"
-  | "dashboard-cards"
-  | "filter-search"
-  | "sidebar-navigation"
-  | "multi-step-form"
-  | "todo-crud"
-  | "real-time-chat"
-  | "file-upload"
-  | "user-dashboard"
-  | "admin-dashboard"
-  | "e-commerce"
-  | "blog"
-  | "api-crud"
-  | "notifications"
-  | "social-media"
-  | "maps"
-  | "charts"
-  | "fullstack"
-  | "ecommerce-cart"
   | "referrals"
+  | "search"
+  | "ui"
+  | "fullstack"
+  | "chat"
 
 export interface Project {
-  id: ProjectCategory;
+  id: number;
   title: string;
+  slug: string;
   description: string;
   tags: string[];
   github?: string;

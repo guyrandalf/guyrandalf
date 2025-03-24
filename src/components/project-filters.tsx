@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Lock,
-  CreditCard,
-  LayoutDashboard,
-  MessageSquare,
-  FileText,
-  Search,
-} from "lucide-react";
+import { Lock, MessageSquare, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
@@ -16,10 +9,7 @@ import { projects } from "../data/projects";
 const filterCategories = [
   { id: "all", label: "All Projects", icon: null },
   { id: "auth", label: "Authentication", icon: Lock },
-  { id: "payment", label: "Payments", icon: CreditCard },
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: "chat", label: "Real-time Chat", icon: MessageSquare },
-  { id: "cms", label: "CMS", icon: FileText },
   { id: "search", label: "Search", icon: Search },
 ] as const;
 

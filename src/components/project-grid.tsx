@@ -6,15 +6,7 @@ import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "./project-card";
 
-const categories = [
-  "all",
-  "auth",
-  "payment",
-  "dashboard",
-  "chat",
-  "cms",
-  "search",
-];
+const categories = ["all", "auth", "chat", "search"];
 
 export default function ProjectGrid() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -45,7 +37,7 @@ export default function ProjectGrid() {
       >
         {filteredProjects.map((project) => (
           <motion.div
-            key={project.id}
+            key={project.slug}
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

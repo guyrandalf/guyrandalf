@@ -28,7 +28,8 @@
         "useKeyWithClickEvents": "off",
         "useMediaCaption": "off",
         "noLabelWithoutControl": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off"
       }
     }
   },

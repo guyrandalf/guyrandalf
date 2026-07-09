@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import Link from "next/link";
+import { type MouseEvent, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { PROFILE } from "@/lib/ai/profile";
 import { SpecStrip } from "./spec-strip";
@@ -29,12 +30,33 @@ export function Hero() {
         animate: "show" as const,
       };
   const el = reduce ? {} : { variants: item };
+  const spotlightRef = useRef<HTMLDivElement>(null);
+
+  function handleMove(e: MouseEvent<HTMLElement>) {
+    const node = spotlightRef.current;
+    if (!node) return;
+    const rect = node.getBoundingClientRect();
+    node.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    node.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  }
 
   return (
-    <section className="relative isolate overflow-hidden py-16 sm:py-24">
+    <section
+      onMouseMove={reduce ? undefined : handleMove}
+      className="relative isolate overflow-hidden py-16 sm:py-24"
+    >
       <div
         aria-hidden
         className="dot-grid pointer-events-none absolute inset-0 -z-10"
+      />
+      <div
+        ref={spotlightRef}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 transition-opacity"
+        style={{
+          background:
+            "radial-gradient(480px circle at var(--mx, 50%) var(--my, 26%), color-mix(in oklch, var(--primary) 16%, transparent), transparent 45%)",
+        }}
       />
       <motion.div {...group} className="mx-auto max-w-3xl text-center">
         <motion.p
@@ -57,7 +79,7 @@ export function Hero() {
           {...el}
           className="mt-5 font-display text-2xl font-medium tracking-tight text-balance sm:text-3xl"
         >
-          I ship <span className="text-primary">production AI systems</span>,
+          I ship <span className="text-shimmer">production AI systems</span>,
           end to end.
         </motion.p>
         <motion.p

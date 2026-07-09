@@ -31,6 +31,7 @@ SCREENSHOT_API_KEY               # optional (microlink works without it)
 ```
 
 Notes:
+
 - Generate **new** JWT secrets for production, do not reuse the local ones.
 - `NODE_ENV=production` makes the auth cookies `Secure`, so serve over HTTPS.
 
@@ -44,6 +45,8 @@ DATABASE_URL="<prod-direct-url>" DIRECT_URL="<prod-direct-url>" bunx prisma migr
 DATABASE_URL="<prod-direct-url>" ADMIN_EMAIL="..." ADMIN_PASSWORD="..." bun run db:seed
 ```
 
+postgresql://postgres.mzwncuvzrmrtpglmnogw:Big79xHHxcAUPjVw@aws-1-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+postgresql://postgres.msryqiuczljethparpmf:Big79xHHxcAUPjVw@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
 Neither migrations nor seeding run automatically on `git push` / Vercel build. This is a deliberate, one-time step (re-run `migrate deploy` only when the schema changes; do not re-run the seed, it resets the admin password and re-adds starter projects).
 
 ## 4. Build + deploy

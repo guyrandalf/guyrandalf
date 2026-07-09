@@ -1,49 +1,117 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma 7 schema. Client is generated to src/generated/prisma (see prisma.config.ts).
+// Runtime uses the @prisma/adapter-pg driver adapter against Supabase Postgres.
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   firstName String
   lastName  String
-  email     String   @unique
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now())
-  todos     Todo[]
-  chats     Chat[]
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sessions  Session[]
+
+  @@map("users")
 }
 
-model Todo {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  completed   Boolean  @default(false)
+// Refresh-token family for rotation + reuse detection (RFC 8725 §5).
+// We store only a hash of the refresh token, never the token itself.
+model Session {
+  id          String    @id @default(uuid())
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jti         String    @unique
+  hashedToken String
+  userAgent   String?
+  ip          String?
+  expiresAt   DateTime
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
 
   @@index([userId])
+  @@map("sessions")
 }
 
-model Chat {
-  id        String   @id @default(uuid())
-  message   String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum ProjectKind {
+  INTERNAL_DEMO // lives inside this app
+  EXTERNAL_LIVE // hosted elsewhere, linked + auto-thumbnailed
+  NATIVE_APP    // Swift / on-device CoreAI apps, shown via video + screenshots
+  AI_SYSTEM     // the live AI features built into this site
+}
 
-  @@index([userId])
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum LeadStatus {
+  PENDING
+  REFERRED
+}
+
+model Project {
+  id        String      @id @default(uuid())
+  slug      String      @unique
+  title     String
+  summary   String
+  longform  String? // markdown long-form write-up
+  kind      ProjectKind
+  tags      String[]
+  repoUrl   String?
+  liveUrl   String?
+  thumbnailUrl String?
+  featured  Boolean     @default(false)
+  order     Int         @default(0)
+  published Boolean     @default(true)
+  // The "explain everything" hover cards: technical vs plain-language.
+  explainerTech  String?
+  explainerPlain String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  media     Media[]
+
+  @@index([kind])
+  @@map("projects")
+}
+
+model Media {
+  id        String    @id @default(uuid())
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type      MediaType
+  url       String
+  caption   String?
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  @@index([projectId])
+  @@map("media")
+}
+
+model Lead {
+  id           String     @id @default(uuid())
+  leadName     String
+  service      String
+  location     String
+  partner      String?
+  status       LeadStatus @default(PENDING)
+  discountCode String?
+  createdAt    DateTime   @default(now())
+
+  @@map("leads")
 }

@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { useState } from "react";
 import Container from "./container";
 import ModeToggle from "./theme-toggle";
+import { ExplainModeToggle } from "@/components/explain/explain-mode";
 
 const routes = [
   {
@@ -14,8 +15,12 @@ const routes = [
     label: "Home",
   },
   {
-    href: "/projects",
-    label: "Projects",
+    href: "/assistant",
+    label: "Assistant",
+  },
+  {
+    href: "/case-study",
+    label: "Case Study",
   },
 ];
 
@@ -70,7 +75,8 @@ export default function Navbar() {
           </Sheet>
 
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <ExplainModeToggle />
               <ModeToggle />
             </div>
           </div>

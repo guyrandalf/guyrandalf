@@ -1,6 +1,6 @@
 import "dotenv/config";
 import path from "node:path";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 // Prisma 7 no longer auto-loads .env; `dotenv/config` populates process.env
 // before Prisma resolves env() references below.
@@ -15,6 +15,8 @@ export default defineConfig({
   // not from the schema's datasource block. The runtime client uses the
   // @prisma/adapter-pg adapter (see src/lib/prisma.ts).
   datasource: {
-    url: env("DATABASE_URL"),
+    // CLI (migrate / studio) uses the DIRECT connection. The app runtime uses
+    // DATABASE_URL (the pooled connection on serverless) via the pg adapter.
+    url: process.env.DIRECT_URL ?? process.env.DATABASE_URL,
   },
 });

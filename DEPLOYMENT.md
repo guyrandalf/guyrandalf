@@ -39,9 +39,12 @@ Notes:
 Against the production database (once):
 
 ```bash
-DATABASE_URL="<prod-url>" bunx prisma migrate deploy
-DATABASE_URL="<prod-url>" ADMIN_EMAIL="..." ADMIN_PASSWORD="..." bun run db:seed
+# Point both at the DIRECT (5432) connection for this one-time setup.
+DATABASE_URL="<prod-direct-url>" DIRECT_URL="<prod-direct-url>" bunx prisma migrate deploy
+DATABASE_URL="<prod-direct-url>" ADMIN_EMAIL="..." ADMIN_PASSWORD="..." bun run db:seed
 ```
+
+Neither migrations nor seeding run automatically on `git push` / Vercel build. This is a deliberate, one-time step (re-run `migrate deploy` only when the schema changes; do not re-run the seed, it resets the admin password and re-adds starter projects).
 
 ## 4. Build + deploy
 

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import AdminShell from "@/components/admin/admin-shell";
-import { projectsDal } from "@/lib/dal/projects";
-import { leadsDal } from "@/lib/dal/leads";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { leadsDal } from "@/lib/dal/leads";
+import { projectsDal } from "@/lib/dal/projects";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin" };
@@ -18,7 +18,10 @@ export default async function AdminDashboard() {
     <AdminShell>
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat label="Projects" value={projects.length} />
-        <Stat label="Published" value={projects.filter((p) => p.published).length} />
+        <Stat
+          label="Published"
+          value={projects.filter((p) => p.published).length}
+        />
         <Stat label="Leads" value={leads.length} />
       </div>
       <div className="flex flex-wrap gap-3">

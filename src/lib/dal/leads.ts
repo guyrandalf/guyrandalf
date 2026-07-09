@@ -1,6 +1,6 @@
 import "server-only";
-import { prisma } from "@/lib/prisma";
 import type { LeadStatus } from "@/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export const leadsDal = {
   create(data: {

@@ -1,6 +1,8 @@
 // Bio/positioning the assistant can surface. Plain data (admin-editable later).
 export const PROFILE = {
-  name: "Guy Randalf",
+  name: "Randalf Ehigiator",
+  fullName: "Osabuohien Randalf Ehigiator",
+  preferredName: "Randalf",
   role: "AI Engineer (Full-Stack)",
   location: "Lagos, Nigeria · remote, available during US business hours",
   summary:

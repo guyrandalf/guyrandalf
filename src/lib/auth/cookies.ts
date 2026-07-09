@@ -10,9 +10,15 @@ const base = {
   path: "/",
 };
 
-export async function setAuthCookies(accessToken: string, refreshToken: string) {
+export async function setAuthCookies(
+  accessToken: string,
+  refreshToken: string,
+) {
   const store = await cookies();
-  store.set(ACCESS_COOKIE, accessToken, { ...base, maxAge: ACCESS_TTL_SECONDS });
+  store.set(ACCESS_COOKIE, accessToken, {
+    ...base,
+    maxAge: ACCESS_TTL_SECONDS,
+  });
   store.set(REFRESH_COOKIE, refreshToken, {
     ...base,
     maxAge: REFRESH_TTL_SECONDS,

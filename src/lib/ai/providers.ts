@@ -1,6 +1,6 @@
 import "server-only";
-import { createXai } from "@ai-sdk/xai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createXai } from "@ai-sdk/xai";
 import type { LanguageModel } from "ai";
 
 // Provider-agnostic AI layer. Adding a provider is one entry here + one key.
@@ -33,13 +33,12 @@ export const PROVIDERS: Record<ProviderId, ProviderInfo> = {
   },
 };
 
-export const DEFAULT_PROVIDER: ProviderId =
-  ((): ProviderId => {
-    const configured = process.env.AI_PROVIDER;
-    return configured && configured in PROVIDERS
-      ? (configured as ProviderId)
-      : "xai";
-  })();
+export const DEFAULT_PROVIDER: ProviderId = ((): ProviderId => {
+  const configured = process.env.AI_PROVIDER;
+  return configured && configured in PROVIDERS
+    ? (configured as ProviderId)
+    : "xai";
+})();
 
 /** Coerce an untrusted provider id (from the client) to a known one. */
 export function resolveProvider(id?: string | null): ProviderId {

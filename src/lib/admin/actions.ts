@@ -4,13 +4,18 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { requireAdmin } from "@/lib/auth/session";
-import { projectsDal } from "@/lib/dal/projects";
-import { mediaDal } from "@/lib/dal/media";
-import { uploadToStorage } from "@/lib/storage";
 import { screenshotUrl } from "@/lib/admin/thumbnail";
+import { requireAdmin } from "@/lib/auth/session";
+import { mediaDal } from "@/lib/dal/media";
+import { projectsDal } from "@/lib/dal/projects";
+import { uploadToStorage } from "@/lib/storage";
 
-const KINDS = ["AI_SYSTEM", "EXTERNAL_LIVE", "INTERNAL_DEMO", "NATIVE_APP"] as const;
+const KINDS = [
+  "AI_SYSTEM",
+  "EXTERNAL_LIVE",
+  "INTERNAL_DEMO",
+  "NATIVE_APP",
+] as const;
 
 function str(v: FormDataEntryValue | null): string {
   return typeof v === "string" ? v.trim() : "";
@@ -29,7 +34,10 @@ const projectSchema = z.object({
   slug: z
     .string()
     .min(1)
-    .regex(/^[a-z0-9-]+$/, "Slug: lowercase letters, digits, and hyphens only."),
+    .regex(
+      /^[a-z0-9-]+$/,
+      "Slug: lowercase letters, digits, and hyphens only.",
+    ),
   title: z.string().min(1, "Title is required."),
   summary: z.string().min(1, "Summary is required."),
   kind: z.enum(KINDS),
@@ -123,14 +131,18 @@ export async function uploadMedia(
   if (!projectId || !(file instanceof File) || file.size === 0) {
     return { error: "A project and a file are required." };
   }
-  if (file.size > 50 * 1024 * 1024) {
-    return { error: "File is larger than 50MB." };
+  if (file.size > 500 * 1024 * 1024) {
+    return { error: "File is larger than 500MB." };
   }
 
   try {
     const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
     const path = `projects/${projectId}/${randomUUID()}.${ext}`;
-    const url = await uploadToStorage(path, await file.arrayBuffer(), file.type);
+    const url = await uploadToStorage(
+      path,
+      await file.arrayBuffer(),
+      file.type,
+    );
     await mediaDal.create({
       project: { connect: { id: projectId } },
       type,

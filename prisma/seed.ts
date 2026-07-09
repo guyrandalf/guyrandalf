@@ -1,6 +1,6 @@
 import "dotenv/config";
-import bcrypt from "bcryptjs";
 import { PrismaPg } from "@prisma/adapter-pg";
+import bcrypt from "bcryptjs";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { seedProjects } from "./seed-data";
 
@@ -20,8 +20,8 @@ async function main() {
     // Re-seeding resets the admin password from .env (env is the source of truth).
     update: { role: "ADMIN", password: hashed },
     create: {
-      firstName: "Guy",
-      lastName: "Randalf",
+      firstName: "Osabuohien",
+      lastName: "Ehigiator",
       email,
       password: hashed,
       role: "ADMIN",

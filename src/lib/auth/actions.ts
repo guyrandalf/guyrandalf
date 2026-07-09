@@ -3,12 +3,8 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { clearAuthCookies, getAuthCookies, setAuthCookies } from "./cookies";
 import { authenticate, revokeSession } from "./service";
-import {
-  setAuthCookies,
-  clearAuthCookies,
-  getAuthCookies,
-} from "./cookies";
 
 const loginSchema = z.object({
   email: z.string().email(),

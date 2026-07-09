@@ -1,17 +1,13 @@
 import {
-  streamText,
   convertToModelMessages,
   stepCountIs,
+  streamText,
   type UIMessage,
 } from "ai";
-import {
-  languageModel,
-  resolveProvider,
-  PROVIDERS,
-} from "@/lib/ai/providers";
-import { portfolioTools } from "@/lib/ai/tools";
 import { buildSystemPrompt } from "@/lib/ai/prompt";
+import { languageModel, PROVIDERS, resolveProvider } from "@/lib/ai/providers";
 import { rateLimit } from "@/lib/ai/rate-limit";
+import { portfolioTools } from "@/lib/ai/tools";
 
 export const maxDuration = 30;
 
@@ -28,7 +24,10 @@ export async function POST(req: Request) {
   if (!limit.ok) {
     return Response.json(
       { error: "You're sending messages a bit fast. Give it a moment." },
-      { status: 429, headers: { "retry-after": String(limit.retryAfter ?? 30) } },
+      {
+        status: 429,
+        headers: { "retry-after": String(limit.retryAfter ?? 30) },
+      },
     );
   }
 
@@ -54,7 +53,9 @@ export async function POST(req: Request) {
       : Boolean(process.env.XAI_API_KEY);
   if (!keyPresent) {
     return Response.json(
-      { error: `${PROVIDERS[providerId].label} is not configured on the server.` },
+      {
+        error: `${PROVIDERS[providerId].label} is not configured on the server.`,
+      },
       { status: 503 },
     );
   }

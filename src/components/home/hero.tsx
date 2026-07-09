@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { SpecStrip } from "./spec-strip";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PROFILE } from "@/lib/ai/profile";
+import { SpecStrip } from "./spec-strip";
 
 const container: Variants = {
   hidden: {},
@@ -23,12 +23,19 @@ export function Hero() {
   const reduce = useReducedMotion();
   const group = reduce
     ? {}
-    : { variants: container, initial: "hidden" as const, animate: "show" as const };
+    : {
+        variants: container,
+        initial: "hidden" as const,
+        animate: "show" as const,
+      };
   const el = reduce ? {} : { variants: item };
 
   return (
     <section className="relative isolate overflow-hidden py-16 sm:py-24">
-      <div aria-hidden className="dot-grid pointer-events-none absolute inset-0 -z-10" />
+      <div
+        aria-hidden
+        className="dot-grid pointer-events-none absolute inset-0 -z-10"
+      />
       <motion.div {...group} className="mx-auto max-w-3xl text-center">
         <motion.p
           {...el}
@@ -50,8 +57,8 @@ export function Hero() {
           {...el}
           className="mt-5 font-display text-2xl font-medium tracking-tight text-balance sm:text-3xl"
         >
-          I ship <span className="text-primary">production AI systems</span>, end
-          to end.
+          I ship <span className="text-primary">production AI systems</span>,
+          end to end.
         </motion.p>
         <motion.p
           {...el}

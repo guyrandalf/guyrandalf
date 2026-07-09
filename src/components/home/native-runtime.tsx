@@ -1,6 +1,6 @@
+import { Explainer } from "@/components/explain/explainer";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeader } from "./section-header";
-import { Explainer } from "@/components/explain/explainer";
 
 interface MediaItem {
   type: string;

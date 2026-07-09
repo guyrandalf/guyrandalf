@@ -1,5 +1,5 @@
 import "server-only";
-import { supabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase/server";
+import { MEDIA_BUCKET, supabaseAdmin } from "@/lib/supabase/server";
 
 async function ensureMediaBucket() {
   const { data } = await supabaseAdmin.storage.listBuckets();

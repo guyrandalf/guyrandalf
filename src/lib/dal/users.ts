@@ -1,6 +1,6 @@
 import "server-only";
-import { prisma } from "@/lib/prisma";
 import type { Role } from "@/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export const usersDal = {
   findByEmail(email: string) {
@@ -17,5 +17,8 @@ export const usersDal = {
     role?: Role;
   }) {
     return prisma.user.create({ data });
+  },
+  updatePassword(id: string, password: string) {
+    return prisma.user.update({ where: { id }, data: { password } });
   },
 };

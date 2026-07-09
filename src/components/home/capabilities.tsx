@@ -1,16 +1,16 @@
-import Link from "next/link";
 import {
   ArrowUpRight,
-  MessageSquare,
   FileCode2,
-  Shuffle,
-  ShieldCheck,
   type LucideIcon,
+  MessageSquare,
+  ShieldCheck,
+  Shuffle,
 } from "lucide-react";
+import Link from "next/link";
+import { Explainer } from "@/components/explain/explainer";
 import { Reveal } from "@/components/motion/reveal";
 import { MotionCard } from "./motion-card";
 import { SectionHeader } from "./section-header";
-import { Explainer } from "@/components/explain/explainer";
 
 interface Capability {
   icon: LucideIcon;
@@ -79,7 +79,11 @@ export function Capabilities() {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/15">
                   <cap.icon className="h-5 w-5" />
                 </span>
-                <Explainer title={cap.title} plain={cap.plain} technical={cap.tech} />
+                <Explainer
+                  title={cap.title}
+                  plain={cap.plain}
+                  technical={cap.tech}
+                />
               </div>
               <h3 className="font-display text-xl font-semibold tracking-tight">
                 {cap.title}

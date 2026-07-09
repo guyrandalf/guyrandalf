@@ -1,6 +1,6 @@
 import "server-only";
-import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@/generated/prisma/client";
 
 // Singleton PrismaClient (Prisma 7 + pg driver adapter). The globalThis guard
 // prevents exhausting connections during dev hot-reload.

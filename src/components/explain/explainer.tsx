@@ -1,9 +1,9 @@
 "use client";
 
-import { Info } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";
-import { useExplainMode, type ExplainMode } from "./explain-mode";
+import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { type ExplainMode, useExplainMode } from "./explain-mode";
 
 interface ExplainerProps {
   title?: string;
@@ -22,7 +22,12 @@ const MODES: { value: ExplainMode; label: string }[] = [
  * Technical switch lives inside it (and syncs the global toggle), so flipping it
  * changes the text live. Click-based so it works on touch, not just hover.
  */
-export function Explainer({ title, technical, plain, className }: ExplainerProps) {
+export function Explainer({
+  title,
+  technical,
+  plain,
+  className,
+}: ExplainerProps) {
   const { mode, setMode } = useExplainMode();
   const text = mode === "technical" ? technical : plain;
 

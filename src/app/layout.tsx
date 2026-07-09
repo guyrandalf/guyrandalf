@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { ExplainModeProvider } from "@/components/explain/explain-mode";
+import Container from "@/components/layout/container";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import ThemeProvider from "@/components/theme-provider";
-import { ExplainModeProvider } from "@/components/explain/explain-mode";
-import Container from "@/components/layout/container";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
@@ -27,7 +27,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Guy Randalf · AI Engineer (Full-Stack)",
+  title: "Randalf Ehigiator · AI Engineer (Full-Stack)",
   description:
     "Full-stack AI engineer building production AI systems: tool-calling agents, LLM-integrated products, and on-device AI, shipped with Claude Code.",
 };

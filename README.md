@@ -1,59 +1,50 @@
-# 👋 Hey there, I'm Randalf!
+# guyrandalf
 
-Welcome to my GitHub profile! This special README is like my personal homepage, but cooler.
+A production AI portfolio for an **AI Engineer (Full-Stack)**. The site is itself a live, multi-provider AI system, not a static resume.
 
-## About Me
+## What it does
 
-- 💻 **Full Stack Engineer** @ Atulocare | **AI & SaaS Builder** @ Randisoft
-- 🎹 **Organ > Piano** (yes, I stand by this)
-- 🎓 **BYU-Pathway Student** | Studying **CS fundamentals daily**
-- 🤖 Passionate about **AI-powered automation, scalable SaaS, and business process optimization**
-- 💡 Always looking for **tech that saves lives, not just makes money**
+- **Chat with my portfolio** (`/assistant`): a tool-calling assistant grounded in the site's Postgres through a server-side DAL. It streams, shows its tool calls, and switches between **Grok** and **Gemini** live. No made-up answers.
+- **AI case-study generator** (`/case-study`): paste a system description or repo URL, get a typed architecture breakdown via structured output (Zod).
+- **Provider-agnostic AI layer**: xAI (Grok) + Google (Gemini) behind one registry; adding Anthropic or OpenAI is a one-line change.
+- **Self-service admin** (`/admin`): pure-JWT gated CRUD for projects, media, and leads. Upload Swift / CoreAI app videos to Supabase Storage, or add an externally-hosted project by URL and auto-capture a thumbnail.
+- **Hover explainers** on every feature, with a Simple ⇄ Technical toggle.
 
-## Getting Started
+## Stack
 
-To understand me better, run the following command:
+Next.js 16 (App Router, Turbopack, React Compiler) · React 19.2 · Tailwind v4 · Prisma 7 + Supabase Postgres · pure-JWT auth (`jose`, rotating refresh + reuse detection) · Vercel AI SDK · Motion · Bun · Biome.
+
+## Local development
+
+Prereqs: [Bun](https://bun.sh) and a running local Supabase stack (`supabase start`), or any Postgres for the DB plus Supabase for Storage.
 
 ```bash
-npx guyrandalf
-# or
-curl -sL guyrandalf.dev/init.sh | bash
-# or
-echo "Just ask me something cool 😎"
+bun install
+# .env already holds the local Supabase values (it is gitignored)
+bun run db:migrate    # apply the schema to local Postgres
+bun run db:seed       # seed the admin user + starter projects
+bun run dev           # http://localhost:3000
 ```
 
-Alternatively, deploy my ideas on Vercel (or, you know, just hire me):
+Sign in to the admin at `/admin/login` with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`. To rotate the password, change it in `.env` and re-run `bun run db:seed`.
 
-Projects & Interests
+## Scripts
 
-Here are some cool things I’m working on:
-• 🎉 Tudoria – A BYU Pathway student Q&A platform (think Stack Overflow, but for all courses)
-• 💍 Wedding App SaaS? – Built my own wedding web app, now thinking of making it a SaaS
-• 🧠 Randisoft AI SaaS – Building AI-powered HR, BPA, and Finance automation
-• 🎬 Movie Platform – My school project, a vanilla JavaScript movie listing app
+| Command | What it does |
+|---|---|
+| `bun run dev` / `build` / `start` | Next.js dev / production build / serve |
+| `bun run typecheck` | `tsc --noEmit` |
+| `bun run check` / `lint` / `format` | Biome |
+| `bun run db:migrate` / `db:seed` / `db:studio` / `db:reset` | Prisma |
 
-Learn More
+## Environment
 
-Want to dive deeper into what I do? Check these out:
-• 📝 Randisoft Vision – AI-powered automation for individuals & businesses
-• 📖 My CS Study Plan – Structured computer science fundamentals learning
-• 🔥 My Tech Stack – Next.js, React, React Native, Tailwind, PostgreSQL, Prisma, and more
+All config lives in `.env` (gitignored). Key vars: `DATABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `XAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`.
 
-Deploy Me (If Possible, Haha)
+## Deploying
 
-If you think you can deploy me, here’s a handy command:
+See [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
-```
-git clone https://github.com/guyrandalf/guyrandalf
-cd guyrandalf
-bun install && bun start
-```
+## AI cost + guardrails
 
-Or just send me an email and let’s build something cool. 🚀
-
-📫 Connect With Me
-• Email: randalfosabuohien@gmail.com
-• LinkedIn: linkedin.com/in/randalf
-• Twitter/X: @guyrandalf
-
-This README auto-updates whenever I level up in life.
+Grok handles high-volume generation (cheap); Gemini's free tier is the alternate. Every AI route has per-IP rate limiting, bounded tool loops (`stepCountIs`), timeouts, and graceful fallbacks when a provider key is missing.

@@ -1,12 +1,12 @@
 "use client";
 
 import { useActionState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
 import {
-  uploadMedia,
   deleteMedia,
   type MediaFormState,
+  uploadMedia,
 } from "@/lib/admin/actions";
-import { Button } from "@/components/ui/button";
 
 type MediaItem = {
   id: string;
@@ -39,7 +39,11 @@ export function MediaManager({
           <option value="IMAGE">Image</option>
           <option value="VIDEO">Video</option>
         </select>
-        <input name="caption" placeholder="Caption (optional)" className={field} />
+        <input
+          name="caption"
+          placeholder="Caption (optional)"
+          className={field}
+        />
         <Button type="submit" disabled={pending}>
           {pending ? "Uploading…" : "Upload"}
         </Button>
@@ -50,7 +54,10 @@ export function MediaManager({
 
       <div className="grid gap-3 sm:grid-cols-3">
         {media.map((m) => (
-          <div key={m.id} className="space-y-1 rounded-md border border-border p-2">
+          <div
+            key={m.id}
+            className="space-y-1 rounded-md border border-border p-2"
+          >
             {m.type === "IMAGE" ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img

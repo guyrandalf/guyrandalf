@@ -1,8 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import { deleteProject, togglePublish } from "@/lib/admin/actions";
 import { Button } from "@/components/ui/button";
+import { deleteProject, togglePublish } from "@/lib/admin/actions";
 
 export function ProjectRowActions({
   id,

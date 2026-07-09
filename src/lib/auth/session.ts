@@ -1,7 +1,7 @@
 import "server-only";
 import { redirect } from "next/navigation";
 import { getAuthCookies } from "./cookies";
-import { verifyAccessToken, type UserRole } from "./tokens";
+import { type UserRole, verifyAccessToken } from "./tokens";
 
 export interface SessionUser {
   id: string;
@@ -25,7 +25,7 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
 /** Guards admin server components. Redirects to the login page if not an admin. */
 export async function requireAdmin(): Promise<SessionUser> {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") {
+  if (user?.role !== "ADMIN") {
     redirect("/admin/login");
   }
   return user;

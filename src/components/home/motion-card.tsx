@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
 
 /** Springy hover-lift wrapper for cards. */
 export function MotionCard({

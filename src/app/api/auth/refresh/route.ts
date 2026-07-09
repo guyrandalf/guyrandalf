@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { rotate } from "@/lib/auth/service";
+import { NextResponse } from "next/server";
 import {
-  setAuthCookies,
   clearAuthCookies,
   getAuthCookies,
+  setAuthCookies,
 } from "@/lib/auth/cookies";
+import { rotate } from "@/lib/auth/service";
 
 export async function POST() {
   const { refreshToken } = await getAuthCookies();

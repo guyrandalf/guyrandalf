@@ -1,6 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { verifyAccessToken } from "@/lib/auth/tokens";
+import { type NextRequest, NextResponse } from "next/server";
 import { ACCESS_COOKIE } from "@/lib/auth/constants";
+import { verifyAccessToken } from "@/lib/auth/tokens";
 
 // Next.js 16: this is `proxy.ts` (renamed from middleware.ts), runs on the
 // Node.js runtime. We keep it stateless: verify the access token's signature
@@ -10,7 +10,9 @@ const PUBLIC_PREFIXES = ["/admin/login"];
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+  if (
+    PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+  ) {
     return NextResponse.next();
   }
 

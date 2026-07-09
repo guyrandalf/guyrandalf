@@ -1,9 +1,9 @@
 import Link from "next/link";
 import AdminShell from "@/components/admin/admin-shell";
-import { projectsDal } from "@/lib/dal/projects";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ProjectRowActions } from "@/components/admin/project-row-actions";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { projectsDal } from "@/lib/dal/projects";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Projects · Admin" };
@@ -30,7 +30,9 @@ export default async function AdminProjectsPage() {
               <div className="flex items-center gap-2">
                 <span className="truncate font-medium">{p.title}</span>
                 {!p.published ? <Badge variant="outline">draft</Badge> : null}
-                {p.featured ? <Badge variant="secondary">featured</Badge> : null}
+                {p.featured ? (
+                  <Badge variant="secondary">featured</Badge>
+                ) : null}
               </div>
               <p className="truncate text-xs text-muted-foreground">
                 {p.slug} · {p.kind}

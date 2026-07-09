@@ -16,8 +16,8 @@ export default function AssistantPage() {
         </h1>
         <p className="mt-3 text-pretty text-muted-foreground">
           A tool-calling assistant grounded in this site&apos;s database, no
-          made-up answers. Switch the model to watch the same feature run on Grok
-          or Gemini.
+          made-up answers. Switch the model to watch the same feature run on
+          Grok or Gemini.
         </p>
       </div>
       <PortfolioChat />

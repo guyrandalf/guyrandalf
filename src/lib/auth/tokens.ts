@@ -1,4 +1,4 @@
-import { SignJWT, jwtVerify, type JWTPayload } from "jose";
+import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 
 // HS256 with a 256-bit secret is RFC 8725-compliant for a single-server issuer.
 // We always: pin an explicit algorithm allowlist on verify, and validate iss/aud/exp.
@@ -69,7 +69,9 @@ export async function verifyAccessToken(token: string): Promise<AccessClaims> {
   return payload as AccessClaims;
 }
 
-export async function verifyRefreshToken(token: string): Promise<RefreshClaims> {
+export async function verifyRefreshToken(
+  token: string,
+): Promise<RefreshClaims> {
   const { payload } = await jwtVerify(token, secret("JWT_REFRESH_SECRET"), {
     issuer: ISSUER,
     audience: AUDIENCE,

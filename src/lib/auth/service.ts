@@ -1,14 +1,14 @@
 import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import bcrypt from "bcryptjs";
-import { usersDal } from "@/lib/dal/users";
 import { sessionsDal } from "@/lib/dal/sessions";
+import { usersDal } from "@/lib/dal/users";
 import {
+  REFRESH_TTL_SECONDS,
   signAccessToken,
   signRefreshToken,
-  verifyRefreshToken,
-  REFRESH_TTL_SECONDS,
   type UserRole,
+  verifyRefreshToken,
 } from "./tokens";
 
 interface RequestMeta {
@@ -85,13 +85,8 @@ export async function rotate(
   refreshToken: string,
   meta?: RequestMeta,
 ): Promise<IssuedTokens | null> {
-  let claims;
-  try {
-    claims = await verifyRefreshToken(refreshToken);
-  } catch {
-    return null;
-  }
-  if (!claims.jti || !claims.sub) return null;
+  const claims = await verifyRefreshToken(refreshToken).catch(() => null);
+  if (!claims?.jti || !claims.sub) return null;
 
   const session = await sessionsDal.findByJti(claims.jti);
   if (!session) return null;

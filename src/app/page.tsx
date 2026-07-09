@@ -1,11 +1,14 @@
-import { projectsDal } from "@/lib/dal/projects";
-import { Hero } from "@/components/home/hero";
-import { Capabilities } from "@/components/home/capabilities";
-import { Work } from "@/components/home/work";
-import { NativeRuntime, type NativeProject } from "@/components/home/native-runtime";
 import { About } from "@/components/home/about";
+import { Capabilities } from "@/components/home/capabilities";
 import { Contact } from "@/components/home/contact";
+import { Hero } from "@/components/home/hero";
+import {
+  type NativeProject,
+  NativeRuntime,
+} from "@/components/home/native-runtime";
 import type { CardProject } from "@/components/home/project-card";
+import { Work } from "@/components/home/work";
+import { projectsDal } from "@/lib/dal/projects";
 
 // Admin-editable content, render fresh (Phase 6 adds tag-based caching).
 export const dynamic = "force-dynamic";

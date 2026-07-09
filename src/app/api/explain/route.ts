@@ -1,6 +1,6 @@
-import { z } from "zod";
 import { generateObject } from "ai";
-import { languageModel, resolveProvider, PROVIDERS } from "@/lib/ai/providers";
+import { z } from "zod";
+import { languageModel, PROVIDERS, resolveProvider } from "@/lib/ai/providers";
 import { rateLimit } from "@/lib/ai/rate-limit";
 
 export const maxDuration = 30;

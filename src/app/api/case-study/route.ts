@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { generateCaseStudy } from "@/lib/ai/case-study";
-import { resolveProvider, PROVIDERS } from "@/lib/ai/providers";
+import { PROVIDERS, resolveProvider } from "@/lib/ai/providers";
 import { rateLimit } from "@/lib/ai/rate-limit";
 
 export const maxDuration = 30;
@@ -51,7 +51,9 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("case-study error:", err);
     return Response.json(
-      { error: "Could not generate a breakdown. Try again or switch the model." },
+      {
+        error: "Could not generate a breakdown. Try again or switch the model.",
+      },
       { status: 502 },
     );
   }

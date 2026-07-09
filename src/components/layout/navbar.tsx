@@ -1,13 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "../ui/button"
-import { Menu } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
-import { useState } from "react"
-import Container from "./container"
-import ModeToggle from "./theme-toggle"
-import { ExplainModeToggle } from "@/components/explain/explain-mode"
+import { Menu } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "../ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import Container from "./container";
+import ModeToggle from "./theme-toggle";
 
 const routes = [
   {
@@ -22,10 +21,10 @@ const routes = [
     href: "/case-study",
     label: "Case Study",
   },
-]
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="glass sticky top-0 z-50 w-full border-b border-border/60">
@@ -35,7 +34,7 @@ export default function Navbar() {
             <Link href="/" className="mr-6 flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-primary" />
               <span className="font-display text-base font-semibold tracking-tight">
-                Guy Randalf
+                Randalf Ehigiator
               </span>
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -85,5 +84,5 @@ export default function Navbar() {
         </div>
       </Container>
     </header>
-  )
+  );
 }

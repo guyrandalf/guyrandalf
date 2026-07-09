@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import AdminShell from "@/components/admin/admin-shell";
-import { ProjectForm } from "@/components/admin/project-form";
 import { MediaManager } from "@/components/admin/media-manager";
+import { ProjectForm } from "@/components/admin/project-form";
 import { projectsDal } from "@/lib/dal/projects";
 
 export const dynamic = "force-dynamic";

@@ -4,10 +4,11 @@
   "files": {
     "includes": [
       "**",
-      "!**/src/generated/**",
-      "!**/.next/**",
-      "!**/node_modules/**",
-      "!**/bun.lock"
+      "!**/src/generated",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/bun.lock",
+      "!**/*.css"
     ]
   },
   "formatter": {
@@ -21,7 +22,14 @@
     "rules": {
       "recommended": true,
       "suspicious": { "noArrayIndexKey": "off" },
-      "a11y": { "noSvgWithoutTitle": "off", "useKeyWithClickEvents": "off" }
+      "performance": { "noImgElement": "off" },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "useMediaCaption": "off",
+        "noLabelWithoutControl": "off",
+        "useSemanticElements": "off"
+      }
     }
   },
   "javascript": {

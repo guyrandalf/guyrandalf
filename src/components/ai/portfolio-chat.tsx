@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -74,8 +74,8 @@ export default function PortfolioChat() {
         {messages.length === 0 ? (
           <div className="space-y-3 text-sm text-muted-foreground">
             <p>
-              Ask anything about Guy&apos;s work. This assistant answers only from
-              the site&apos;s database, using live tool calls.
+              Ask anything about Guy&apos;s work. This assistant answers only
+              from the site&apos;s database, using live tool calls.
             </p>
             <div className="flex flex-wrap gap-2">
               {SUGGESTIONS.map((s) => (
@@ -127,7 +127,9 @@ export default function PortfolioChat() {
                       <span
                         className={cn(
                           "h-1.5 w-1.5 rounded-full",
-                          done ? "bg-emerald-500" : "animate-pulse bg-amber-500",
+                          done
+                            ? "bg-emerald-500"
+                            : "animate-pulse bg-amber-500",
                         )}
                       />
                       {done ? "used" : "calling"} <code>{toolName}</code>

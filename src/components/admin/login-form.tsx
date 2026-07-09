@@ -1,17 +1,17 @@
 "use client";
 
 import { useActionState } from "react";
-import { loginAction, type LoginState } from "@/lib/auth/actions";
 import { Button } from "@/components/ui/button";
+import { type LoginState, loginAction } from "@/lib/auth/actions";
 
 const fieldClass =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
 export default function AdminLoginForm() {
-  const [state, formAction, pending] = useActionState<LoginState | null, FormData>(
-    loginAction,
-    null,
-  );
+  const [state, formAction, pending] = useActionState<
+    LoginState | null,
+    FormData
+  >(loginAction, null);
 
   return (
     <form action={formAction} className="space-y-4">

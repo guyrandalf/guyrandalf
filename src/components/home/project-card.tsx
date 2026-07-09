@@ -1,8 +1,8 @@
+import { ArrowRight, Code2, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, Code2 } from "lucide-react";
-import { MotionCard } from "./motion-card";
 import { Explainer } from "@/components/explain/explainer";
 import { cn } from "@/lib/utils";
+import { MotionCard } from "./motion-card";
 
 const KIND_STYLE: Record<
   string,

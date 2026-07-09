@@ -1,13 +1,13 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
-  saveProject,
   captureThumbnail,
   type ProjectFormState,
+  saveProject,
 } from "@/lib/admin/actions";
 import type { ProjectWithMedia } from "@/lib/dal/projects";
-import { Button } from "@/components/ui/button";
 
 const KIND_OPTIONS = [
   { value: "AI_SYSTEM", label: "AI system" },
@@ -161,7 +161,11 @@ export function ProjectForm({ project }: { project?: ProjectWithMedia }) {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label>Repo URL</Label>
-          <input name="repoUrl" defaultValue={project?.repoUrl ?? ""} className={field} />
+          <input
+            name="repoUrl"
+            defaultValue={project?.repoUrl ?? ""}
+            className={field}
+          />
         </div>
         <div className="space-y-1.5">
           <Label>Live URL</Label>

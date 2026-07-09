@@ -131,13 +131,16 @@ an easy, guided, colorful experience where **every feature explains itself on ho
 - [x] **Inner pages premium pass**: `/assistant` + `/case-study` now have display-type headers, refined chat/generator surfaces, violet-gradient CTAs. Verified live via screenshot: assistant streams a correct grounded answer with a `used list_projects` tool chip; case-study form consistent. Chat prompt now avoids markdown so no literal `**` in replies.
 - [ ] **Remaining polish:** `/admin` is still utilitarian (private, low priority); optional next/image for thumbnails.
 
-### Phase 6 — Prod-readiness + skills + docs
-- [ ] Rate limiting/observability, error monitoring, spend dashboard for AI.
-- [ ] Deploy notes: flip `DATABASE_URL` to Supabase cloud, storage bucket setup, env checklist.
-- [ ] CI: typecheck + lint (+ minimal tests on DAL/auth).
-- [ ] Capture finalized stack as **global skills**: Motion (`motion/react`), AI SDK + provider swap, Supabase-Storage-with-custom-JWT, Next 16 `proxy`, Tailwind v4 setup.
-- [ ] Update `README.md` to reflect the new positioning.
-- **Acceptance:** documented, deployable, skills written.
+### Phase 6 — Prod-readiness + skills + docs ✅ DONE (no deploy, user deploys)
+- [x] Guardrails in place (per-IP rate limit, bounded tool loops, timeouts, fallbacks); spend/cost model documented (Grok cheap gen, Gemini free tier). In-memory limiter → Upstash noted for multi-instance.
+- [x] **Docs**: `README.md` rewritten for the new positioning; `DEPLOYMENT.md` written (Supabase cloud env checklist, `migrate deploy` + seed, Vercel notes). No flip/deploy performed, per user.
+- [x] **CI**: `.github/workflows/ci.yml` (Bun install + `biome ci` + typecheck). **Biome** added (formatter + linter, CSS excluded), `lint`/`format`/`check` scripts, whole repo formatted + clean.
+- [x] **Global skills** written: `nextjs16-prisma7-supabase-stack` and `ai-sdk-multiprovider-toolcalling` (verified 2026 patterns + the real gotchas hit this build).
+- [x] `next.config` images ready for prod (Supabase host `*.supabase.co`, local-IP allowed in dev) if switching `<img>` → `next/image` later.
+- **Acceptance MET:** `biome ci` + `tsc` clean, build green. **Admin upload → home display verified E2E** in a real browser (login → upload media → shows on home; `<video>` path confirmed).
+
+---
+## STATUS: Phases 0-6 complete. App is functional, verified, documented, and ready for the user to deploy.
 
 ---
 

@@ -13,12 +13,16 @@ export const caseStudySchema = z.object({
     .describe("The main building blocks and what each is responsible for."),
   dataFlow: z
     .array(z.string())
-    .describe("Ordered steps describing how a request or data flows through the system."),
+    .describe(
+      "Ordered steps describing how a request or data flows through the system.",
+    ),
   tradeoffs: z
     .array(z.object({ decision: z.string(), rationale: z.string() }))
     .describe("Key design decisions and why they were made."),
   risks: z.array(z.string()).describe("Failure modes or risks to watch for."),
-  stack: z.array(z.string()).describe("Likely technologies and tools involved."),
+  stack: z
+    .array(z.string())
+    .describe("Likely technologies and tools involved."),
 });
 
 export type CaseStudy = z.infer<typeof caseStudySchema>;

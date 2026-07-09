@@ -1,7 +1,7 @@
 import "server-only";
 import { tool } from "ai";
 import { z } from "zod";
-import { projectsDal, type ProjectWithMedia } from "@/lib/dal/projects";
+import { type ProjectWithMedia, projectsDal } from "@/lib/dal/projects";
 import { PROFILE } from "./profile";
 
 // SECURITY / DATA BOUNDARY (mirrors the referral-assistant pattern):
@@ -37,7 +37,9 @@ export const portfolioTools = {
       kind: z
         .enum(KINDS)
         .optional()
-        .describe("Optional filter: AI_SYSTEM, EXTERNAL_LIVE, INTERNAL_DEMO, NATIVE_APP."),
+        .describe(
+          "Optional filter: AI_SYSTEM, EXTERNAL_LIVE, INTERNAL_DEMO, NATIVE_APP.",
+        ),
     }),
     execute: async ({ kind }) => {
       const all = await projectsDal.listPublished();
@@ -54,7 +56,7 @@ export const portfolioTools = {
     }),
     execute: async ({ slug }) => {
       const p = await projectsDal.bySlug(slug);
-      if (!p || !p.published) {
+      if (!p?.published) {
         return { error: "No published project with that slug." };
       }
       return {

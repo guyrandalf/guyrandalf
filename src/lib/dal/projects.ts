@@ -1,6 +1,6 @@
 import "server-only";
+import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@/generated/prisma/client";
 
 const withMedia = {
   media: { orderBy: { order: "asc" as const } },

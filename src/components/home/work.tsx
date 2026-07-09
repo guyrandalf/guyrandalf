@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
+import { type CardProject, ProjectCard } from "./project-card";
 import { SectionHeader } from "./section-header";
-import { ProjectCard, type CardProject } from "./project-card";
 
 export function Work({ projects }: { projects: CardProject[] }) {
   if (projects.length === 0) return null;

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { requireAdmin } from "@/lib/auth/session";
-import { logoutAction } from "@/lib/auth/actions";
 import { Button } from "@/components/ui/button";
+import { logoutAction } from "@/lib/auth/actions";
+import { requireAdmin } from "@/lib/auth/session";
 
 const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/projects", label: "Projects" },
   { href: "/admin/leads", label: "Leads" },
+  { href: "/admin/settings", label: "Settings" },
 ];
 
 export default async function AdminShell({

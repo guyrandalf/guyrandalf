@@ -46,7 +46,7 @@ export default function PortfolioChat() {
   }
 
   return (
-    <Card className="flex h-[32rem] flex-col overflow-hidden">
+    <Card className="flex h-[34rem] flex-col overflow-hidden rounded-2xl shadow-sm">
       {/* Provider switcher */}
       <div className="flex items-center justify-between gap-2 border-b border-border/60 p-3">
         <span className="text-xs text-muted-foreground">Model</span>
@@ -160,7 +160,11 @@ export default function PortfolioChat() {
           placeholder="Ask about a project, a skill, or how to reach him…"
           className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-1 focus-visible:ring-ring"
         />
-        <Button type="submit" disabled={busy || !input.trim()}>
+        <Button
+          type="submit"
+          disabled={busy || !input.trim()}
+          className="bg-violet-cta text-white hover:opacity-95"
+        >
           {busy ? "…" : "Send"}
         </Button>
       </form>

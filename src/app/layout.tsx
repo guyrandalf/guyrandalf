@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
@@ -8,20 +8,28 @@ import { ExplainModeProvider } from "@/components/explain/explain-mode";
 import Container from "@/components/layout/container";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Guy Randalf — AI Engineer (Full-Stack)",
+  title: "Guy Randalf · AI Engineer (Full-Stack)",
   description:
-    "Full-stack AI engineer building production AI systems: RAG, agents, and LLM-integrated products, shipped with Claude Code.",
+    "Full-stack AI engineer building production AI systems: tool-calling agents, LLM-integrated products, and on-device AI, shipped with Claude Code.",
 };
 
 export default function RootLayout({
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${inter.variable} ${bricolage.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

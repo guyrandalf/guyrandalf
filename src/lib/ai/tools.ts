@@ -50,7 +50,7 @@ export const portfolioTools = {
     description:
       "Get full details for one project by slug, including the long-form write-up and how it was built. Use after list_projects for specifics.",
     inputSchema: z.object({
-      slug: z.string().describe("Project slug, e.g. 'portfolio-rag-chat'."),
+      slug: z.string().describe("Project slug, e.g. 'portfolio-assistant'."),
     }),
     execute: async ({ slug }) => {
       const p = await projectsDal.bySlug(slug);

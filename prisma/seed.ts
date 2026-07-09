@@ -17,7 +17,8 @@ async function main() {
   const hashed = await bcrypt.hash(password, 12);
   const admin = await prisma.user.upsert({
     where: { email },
-    update: { role: "ADMIN" },
+    // Re-seeding resets the admin password from .env (env is the source of truth).
+    update: { role: "ADMIN", password: hashed },
     create: {
       firstName: "Guy",
       lastName: "Randalf",
@@ -27,6 +28,13 @@ async function main() {
     },
   });
   console.log(`Seeded admin: ${admin.email} (${admin.role})`);
+
+  // Remove projects that were renamed or dropped in the redesign.
+  const staleSlugs = ["portfolio-rag-chat", "ai-agent-playground"];
+  const removed = await prisma.project.deleteMany({
+    where: { slug: { in: staleSlugs } },
+  });
+  if (removed.count) console.log(`Removed ${removed.count} stale project(s)`);
 
   for (const project of seedProjects) {
     await prisma.project.upsert({

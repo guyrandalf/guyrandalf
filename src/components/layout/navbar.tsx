@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { useState } from "react";
-import Container from "./container";
-import ModeToggle from "./theme-toggle";
-import { ExplainModeToggle } from "@/components/explain/explain-mode";
+import Link from "next/link"
+import { Button } from "../ui/button"
+import { Menu } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
+import { useState } from "react"
+import Container from "./container"
+import ModeToggle from "./theme-toggle"
+import { ExplainModeToggle } from "@/components/explain/explain-mode"
 
 const routes = [
   {
@@ -22,18 +22,21 @@ const routes = [
     href: "/case-study",
     label: "Case Study",
   },
-];
+]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background">
+    <header className="glass sticky top-0 z-50 w-full border-b border-border/60">
       <Container>
         <div className="flex h-14 max-w-screen-2xl items-center">
           <div className="mr-4 hidden md:flex">
-            <Link href="/" className="mr-6 flex items-center space-x-2">
-              <span className="font-bold">Guy Randalf</span>
+            <Link href="/" className="mr-6 flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-primary" />
+              <span className="font-display text-base font-semibold tracking-tight">
+                Guy Randalf
+              </span>
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium">
               {routes.map((route) => (
@@ -76,12 +79,11 @@ export default function Navbar() {
 
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
             <div className="flex items-center gap-2">
-              <ExplainModeToggle />
               <ModeToggle />
             </div>
           </div>
         </div>
       </Container>
     </header>
-  );
+  )
 }

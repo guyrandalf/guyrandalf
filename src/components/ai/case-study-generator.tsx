@@ -77,6 +77,7 @@ export default function CaseStudyGenerator() {
             <Button
               onClick={generate}
               disabled={loading || input.trim().length < 8}
+              className="bg-violet-cta text-white hover:opacity-95"
             >
               {loading ? "Analyzing…" : "Generate breakdown"}
             </Button>

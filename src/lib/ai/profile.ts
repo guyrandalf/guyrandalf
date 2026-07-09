@@ -13,8 +13,8 @@ export const PROFILE = {
     "Claude Code as a daily driver for building and shipping",
   ],
   contact: {
-    email: "development@atulocare.com",
+    email: "guyrandalf93@gmail.com",
     github: "https://github.com/guyrandalf",
-    linkedin: "https://linkedin.com/in/guyrandalf",
+    linkedin: "https://linkedin.com/in/randalf",
   },
 } as const;

@@ -111,21 +111,25 @@ an easy, guided, colorful experience where **every feature explains itself on ho
 
 ### PHASE 3 COMPLETE ✅ — the AI headline is built and verified.
 
-### Phase 4 — Admin panel
-- [ ] JWT-gated `/admin` (role=admin) with dashboard.
-- [ ] CRUD: Projects, Media, Leads.
-- [ ] Media upload → Supabase Storage (server action, service client).
-- [ ] **Add external project by URL → auto-thumbnail** via headless screenshot service (verify/pick at build; leaning microlink free tier), with OG-image + manual-upload fallback. This is how the separately-hosted multi-agent project and Swift/CoreAI apps get added (video + screenshots).
-- [ ] Saving content triggers re-embed for RAG.
-- **Acceptance:** I can add/edit/delete a project + upload a video from the browser; external URL yields a thumbnail; RAG reflects new content.
+### Phase 4 — Admin panel ✅ DONE
+- [x] JWT-gated `/admin` (proxy + `requireAdmin` in `AdminShell`) with dashboard (project/published/lead stats).
+- [x] Project CRUD: `/admin/projects` list + row publish/delete, `/admin/projects/new`, `/admin/projects/[id]/edit`. Server actions (`saveProject`/`deleteProject`/`togglePublish`) all re-check `requireAdmin`.
+- [x] Media upload → **Supabase Storage** via service client (`uploadMedia` server action, `src/lib/storage.ts`); `MediaManager` for Swift-app videos/screenshots. Leads list at `/admin/leads`.
+- [x] **Add external project by URL → auto-thumbnail**: `captureThumbnail` → microlink screenshot → re-uploaded to our Storage → public URL (self-hosted, not dependent on microlink). Free tier, no key needed (`SCREENSHOT_API_KEY` optional).
+- [x] **AI-fill explainers** button in the form → `/api/explain` writes the Simple + Technical text.
+- [x] No re-embed step needed (the chat reads live from the DB via tools, so new content is reflected immediately).
+- **Acceptance MET (verified):** unauth `/admin` → 307; all admin pages render with a real admin session; DB create/update/delete works; microlink → Storage → public fetch works (39KB screenshot); `tsc` clean, build green (7 admin routes).
 
-### Phase 5 — Redesign (Premium & fluid, light default)
-- [ ] Motion system: fluid gradient/cursor, scroll-reveal, page transitions, springy micro-interactions (Antigravity feel).
-- [ ] Reusable `<Explainer>` hover cards on **every** feature + technical/non-technical toggle; colorful.
-- [ ] Sections: Hero → live AI systems showcase → Projects (internal + external + native Swift apps as video case studies) → About (repositioned for AI Engineer role) → Contact.
-- [ ] Copy repositioned: Claude Code daily driver, production AI, agents, RAG, guardrails, ownership.
-- [ ] Accessibility + reduced-motion honored; light/dark both polished.
-- **Acceptance:** lighthouse/perf sane; motion respects `prefers-reduced-motion`; every section has an explainer.
+### Phase 5 — Redesign (Premium & fluid, light default) — landing DONE
+> **Concept:** the portfolio as a **"model card" for a human engineer** (subject-true AI artifact). Luminous cool-white base, blue-black ink, electric indigo→magenta→cyan **spectrum gradient** signature (= multi-provider convergence). Bricolage Grotesque display + Inter body + Geist Mono for the technical vernacular (spec strips, tags).
+- [x] Motion system (`motion/react`): ambient drift gradient, staggered hero load, scroll reveals, springy hover-lift cards. `useReducedMotion` honored + CSS `prefers-reduced-motion` guard.
+- [x] Home sections: Hero (model-card + spec strip + live CTAs) → Capabilities (the live AI features) → Work (DB projects, rich cards) → On-device runtime (native Swift apps as video) → About (repositioned) → Contact ("Deploy me"). All copy repositioned for the AI Engineer role.
+- [x] `<Explainer>` hover cards on capabilities, project cards, and native apps; Simple/Technical + light/dark toggles in the glass navbar.
+- [x] New palette + fonts + `text-spectrum`/`bg-spectrum`/`glass` utilities; typecheck clean, build green, renders 200 with all sections.
+- [x] **Redesign v2 after user review** (first pass was pastel-gradient soup + stale content). Now: clean high-contrast white base, single solid violet accent, per-category card colors (violet/sky/amber/emerald), no gradient washes. Content fixed (dropped RAG/pgvector language + the phantom "agent playground"; cards link to their live routes). Explainer converted to a **click/tap Popover** with the Simple/Technical switch inside it (works on mobile; nav toggle removed as redundant). Tighter spacing, native section is a full-width horizontal card.
+- [x] **Verified with real screenshots** (installed Playwright headless): hero, capabilities, work, native, about, contact all render correctly in light + dark; explainer popover + inline toggle confirmed working. Build green.
+- [x] **Inner pages premium pass**: `/assistant` + `/case-study` now have display-type headers, refined chat/generator surfaces, violet-gradient CTAs. Verified live via screenshot: assistant streams a correct grounded answer with a `used list_projects` tool chip; case-study form consistent. Chat prompt now avoids markdown so no literal `**` in replies.
+- [ ] **Remaining polish:** `/admin` is still utilitarian (private, low priority); optional next/image for thumbnails.
 
 ### Phase 6 — Prod-readiness + skills + docs
 - [ ] Rate limiting/observability, error monitoring, spend dashboard for AI.

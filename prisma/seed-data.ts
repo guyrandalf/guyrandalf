@@ -16,46 +16,34 @@ export interface SeedProject {
 
 export const seedProjects: SeedProject[] = [
   {
-    slug: "portfolio-rag-chat",
+    slug: "portfolio-assistant",
     title: "Chat with my portfolio",
     summary:
-      "Ask anything about my work and get streamed, cited answers. Retrieval-augmented generation over my projects and experience.",
+      "Ask anything about my work and get grounded, streamed answers. A tool-calling assistant that reads this site's database live, on Grok or Gemini.",
     kind: "AI_SYSTEM",
-    tags: ["RAG", "pgvector", "Vercel AI SDK", "Grok", "Streaming"],
+    tags: ["Tool calling", "Vercel AI SDK", "Grok", "Gemini", "Streaming"],
     featured: true,
     order: 1,
+    liveUrl: "/assistant",
     explainerTech:
-      "Content is chunked, embedded, and stored in Postgres (pgvector, HNSW index). A question is embedded, nearest chunks are retrieved by cosine distance, and a grounded answer streams back with citations via the AI SDK.",
+      "Server-side tool-calling loop over the DAL (read-only, whitelisted fields), streamed with the AI SDK; bounded rounds, per-IP limits, live provider switch. No vector DB: the corpus is small, so it reads Postgres directly.",
     explainerPlain:
-      "A chatbot that actually knows my portfolio. Ask it what I've built and it answers in plain English with links to the real thing, instead of making things up.",
-  },
-  {
-    slug: "ai-agent-playground",
-    title: "Live AI agent playground",
-    summary:
-      "Trigger a real autonomous agent that plans, calls tools, and shows its work, with guardrails and fallbacks visible in real time.",
-    kind: "AI_SYSTEM",
-    tags: ["AI agents", "Tool calling", "Guardrails", "Streaming"],
-    featured: true,
-    order: 2,
-    explainerTech:
-      "A bounded tool-calling loop with a fixed step budget, Zod-typed tool schemas, per-step timeouts, and an explicit fallback path. Every step (reasoning, tool call, result) streams to the UI.",
-    explainerPlain:
-      "Watch an AI assistant do a multi-step task by itself, safely. You see every step it takes and the safety rails that keep it in bounds.",
+      "A chatbot that actually knows my portfolio and links to the real thing instead of guessing.",
   },
   {
     slug: "ai-case-study-generator",
     title: "AI case-study generator",
     summary:
-      "Describe a system or paste a repo URL and get a structured architecture breakdown, generated and streamed as typed data.",
+      "Describe a system or paste a repo URL and get a structured architecture breakdown, generated as typed data.",
     kind: "AI_SYSTEM",
-    tags: ["LLM", "Structured output", "Zod", "Streaming"],
+    tags: ["Structured output", "Zod", "Grok", "Gemini"],
     featured: false,
-    order: 3,
+    order: 2,
+    liveUrl: "/case-study",
     explainerTech:
-      "Uses generateObject with a Zod schema to force structured output: components, data flow, trade-offs, and risks, rendered as it streams in.",
+      "generateObject with a Zod schema forces valid structured output (components, data flow, trade-offs, risks), no free-text parsing to babysit.",
     explainerPlain:
-      "Describe any software system and this turns it into a clean, organized breakdown of how it works, automatically.",
+      "Describe any software system and this turns it into a clean, organized breakdown, automatically.",
   },
   {
     slug: "multi-agent-decision-engine",
@@ -65,7 +53,7 @@ export const seedProjects: SeedProject[] = [
     kind: "EXTERNAL_LIVE",
     tags: ["Multi-agent", "Orchestration", "Decision-making"],
     featured: true,
-    order: 4,
+    order: 3,
     liveUrl: "https://example.com",
     explainerTech:
       "Role-specialized agents exchange messages and converge on an outcome, with a coordinator resolving conflicts and a final vote.",
@@ -80,11 +68,11 @@ export const seedProjects: SeedProject[] = [
     kind: "INTERNAL_DEMO",
     tags: ["Next.js", "Server Actions", "Postgres", "Zod"],
     featured: false,
-    order: 5,
+    order: 4,
     explainerTech:
-      "A Zod-validated server-action form writes leads to Postgres through the DAL, matches a partner, and generates a discount code. Demonstrates the reliable CRUD + business-logic layer.",
+      "A Zod-validated server-action form writes leads to Postgres through the DAL, matches a partner, and generates a discount code.",
     explainerPlain:
-      "A mini business tool: someone submits a request, the system matches them to the right partner and gives them a discount code. Proof I build the everyday plumbing well too.",
+      "A mini business tool: someone submits a request, the system matches them to the right partner and gives them a discount code.",
   },
   {
     slug: "on-device-coreai-apps",
@@ -94,10 +82,10 @@ export const seedProjects: SeedProject[] = [
     kind: "NATIVE_APP",
     tags: ["Swift", "SwiftUI", "On-device AI", "Claude Code"],
     featured: true,
-    order: 6,
+    order: 5,
     explainerTech:
-      "Native SwiftUI apps calling on-device foundation models (no cloud round-trip), built with Claude Code as the primary development tool. Private, offline-capable inference.",
+      "Native SwiftUI apps calling on-device foundation models (no cloud round-trip), built with Claude Code as the primary development tool.",
     explainerPlain:
-      "Phone and Mac apps where the AI runs entirely on the device, so it is fast and private. They can't be embedded in a website, so here they are as videos and screenshots.",
+      "Phone and Mac apps where the AI runs entirely on the device, so it is fast and private.",
   },
 ];

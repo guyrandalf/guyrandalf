@@ -52,6 +52,7 @@ export function ExplainModeToggle() {
       className="flex rounded-md border border-border p-0.5"
       role="group"
       aria-label="Explanation detail level"
+      title="Detail level for the ⓘ explainers on cards"
     >
       {options.map((o) => (
         <button

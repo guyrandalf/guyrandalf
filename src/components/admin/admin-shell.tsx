@@ -7,6 +7,8 @@ import { requireAdmin } from "@/lib/auth/session";
 const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/projects", label: "Projects" },
+  { href: "/admin/skills", label: "Skills" },
+  { href: "/admin/education", label: "Education" },
   { href: "/admin/leads", label: "Leads" },
   { href: "/admin/settings", label: "Settings" },
 ];

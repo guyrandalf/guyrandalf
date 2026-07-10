@@ -89,3 +89,75 @@ export const seedProjects: SeedProject[] = [
       "Phone and Mac apps where the AI runs entirely on the device, so it is fast and private.",
   },
 ];
+
+export interface SeedEducation {
+  school: string;
+  credential: string;
+  field?: string;
+  startYear: number;
+  endYear?: number;
+  current: boolean;
+  description?: string;
+  order: number;
+}
+
+// One real entry to start (edit the specifics + add your completed education in the admin).
+export const seedEducation: SeedEducation[] = [
+  {
+    school: "BYU-Pathway Worldwide",
+    credential: "Computer Science",
+    field: "Software Development",
+    startYear: 2023,
+    current: true,
+    description:
+      "Studying computer science fundamentals while shipping production software full time.",
+    order: 1,
+  },
+];
+
+export interface SeedSkill {
+  name: string;
+  category: string;
+  featured: boolean;
+  order: number;
+}
+
+export const seedSkills: SeedSkill[] = [
+  { name: "TypeScript", category: "Languages", featured: true, order: 1 },
+  { name: "JavaScript", category: "Languages", featured: false, order: 2 },
+  { name: "Swift", category: "Languages", featured: false, order: 3 },
+  { name: "SQL", category: "Languages", featured: false, order: 4 },
+
+  { name: "Next.js", category: "Frameworks & UI", featured: true, order: 1 },
+  { name: "React", category: "Frameworks & UI", featured: false, order: 2 },
+  { name: "Node.js", category: "Frameworks & UI", featured: false, order: 3 },
+  { name: "SwiftUI", category: "Frameworks & UI", featured: false, order: 4 },
+  { name: "Tailwind CSS", category: "Frameworks & UI", featured: false, order: 5 },
+
+  { name: "Claude Code", category: "AI & Tooling", featured: true, order: 1 },
+  { name: "Vercel AI SDK", category: "AI & Tooling", featured: false, order: 2 },
+  { name: "Tool-calling agents", category: "AI & Tooling", featured: false, order: 3 },
+  { name: "Structured output (Zod)", category: "AI & Tooling", featured: false, order: 4 },
+  {
+    name: "Multi-provider LLMs (Grok · Gemini · Claude)",
+    category: "AI & Tooling",
+    featured: false,
+    order: 5,
+  },
+  { name: "On-device / CoreAI", category: "AI & Tooling", featured: false, order: 6 },
+  { name: "Prompt architecture", category: "AI & Tooling", featured: false, order: 7 },
+
+  { name: "PostgreSQL", category: "Data & Backend", featured: true, order: 1 },
+  { name: "Prisma", category: "Data & Backend", featured: false, order: 2 },
+  { name: "Supabase", category: "Data & Backend", featured: false, order: 3 },
+  { name: "REST APIs", category: "Data & Backend", featured: false, order: 4 },
+  { name: "Server Actions", category: "Data & Backend", featured: false, order: 5 },
+  { name: "JWT auth", category: "Data & Backend", featured: false, order: 6 },
+
+  { name: "Vercel", category: "Infra & Practice", featured: false, order: 1 },
+  { name: "Bun", category: "Infra & Practice", featured: false, order: 2 },
+  { name: "Git", category: "Infra & Practice", featured: false, order: 3 },
+  { name: "CI/CD", category: "Infra & Practice", featured: false, order: 4 },
+  { name: "System design", category: "Infra & Practice", featured: false, order: 5 },
+  { name: "Ownership", category: "Infra & Practice", featured: false, order: 6 },
+];

@@ -2,7 +2,7 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "../src/generated/prisma/client";
-import { seedProjects } from "./seed-data";
+import { seedEducation, seedProjects, seedSkills } from "./seed-data";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -44,6 +44,22 @@ async function main() {
     });
   }
   console.log(`Seeded ${seedProjects.length} projects`);
+
+  // Seed education + skills only when empty, so re-seeding never duplicates
+  // them or wipes entries you added in the admin.
+  if ((await prisma.education.count()) === 0) {
+    await prisma.education.createMany({ data: seedEducation });
+    console.log(`Seeded ${seedEducation.length} education entries`);
+  } else {
+    console.log("Education already present, skipping");
+  }
+
+  if ((await prisma.skill.count()) === 0) {
+    await prisma.skill.createMany({ data: seedSkills });
+    console.log(`Seeded ${seedSkills.length} skills`);
+  } else {
+    console.log("Skills already present, skipping");
+  }
 }
 
 main()

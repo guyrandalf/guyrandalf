@@ -1,20 +1,28 @@
 import { About } from "@/components/home/about";
 import { Capabilities } from "@/components/home/capabilities";
 import { Contact } from "@/components/home/contact";
+import { EducationSection } from "@/components/home/education";
 import { Hero } from "@/components/home/hero";
 import {
   type NativeProject,
   NativeRuntime,
 } from "@/components/home/native-runtime";
 import type { CardProject } from "@/components/home/project-card";
+import { Skills } from "@/components/home/skills";
 import { Work } from "@/components/home/work";
+import { educationDal } from "@/lib/dal/education";
 import { projectsDal } from "@/lib/dal/projects";
+import { skillsDal } from "@/lib/dal/skills";
 
 // Admin-editable content, render fresh (Phase 6 adds tag-based caching).
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const projects = await projectsDal.listPublished();
+  const [projects, skills, education] = await Promise.all([
+    projectsDal.listPublished(),
+    skillsDal.list(),
+    educationDal.list(),
+  ]);
 
   const cards: CardProject[] = projects.map((p) => ({
     id: p.id,
@@ -54,6 +62,8 @@ export default async function Home() {
       <Capabilities />
       <Work projects={workCards} />
       <NativeRuntime apps={nativeApps} />
+      <Skills skills={skills} />
+      <EducationSection items={education} />
       <About />
       <Contact />
     </>

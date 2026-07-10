@@ -9,11 +9,11 @@ import {
 } from "@/lib/admin/actions";
 import type { ProjectWithMedia } from "@/lib/dal/projects";
 
+// Presentation format only. What a project is about (AI, Swift, ...) is tags.
 const KIND_OPTIONS = [
-  { value: "AI_SYSTEM", label: "AI system" },
-  { value: "EXTERNAL_LIVE", label: "External / live" },
-  { value: "INTERNAL_DEMO", label: "Internal demo" },
-  { value: "NATIVE_APP", label: "Native app" },
+  { value: "LIVE_HERE", label: "Live on this site" },
+  { value: "EXTERNAL", label: "External / hosted elsewhere" },
+  { value: "NATIVE_APP", label: "Native app (Swift / CoreAI)" },
 ];
 
 const field =
@@ -129,7 +129,7 @@ export function ProjectForm({ project }: { project?: ProjectWithMedia }) {
           <Label>Kind</Label>
           <select
             name="kind"
-            defaultValue={project?.kind ?? "AI_SYSTEM"}
+            defaultValue={project?.kind ?? "LIVE_HERE"}
             className={field}
           >
             {KIND_OPTIONS.map((k) => (
@@ -276,6 +276,14 @@ export function ProjectForm({ project }: { project?: ProjectWithMedia }) {
       {note ? <p className="text-sm text-amber-600">{note}</p> : null}
       {state?.error ? (
         <p className="text-sm text-destructive">{state.error}</p>
+      ) : null}
+
+      {!project ? (
+        <p className="rounded-md border border-border bg-muted/50 px-3 py-2 text-sm text-muted-foreground">
+          Save first. You'll land on this project's edit page, where you can
+          upload screenshots and screen recordings (e.g. your Swift / CoreAI
+          apps).
+        </p>
       ) : null}
 
       <Button type="submit" disabled={pending}>

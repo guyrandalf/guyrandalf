@@ -9,12 +9,7 @@ import { PROFILE } from "./profile";
 //   1. Read-only only. No tool mutates data (this is a public bot).
 //   2. Only return PUBLISHED projects.
 //   3. Return an explicit field whitelist, never a raw Prisma object.
-const KINDS = [
-  "AI_SYSTEM",
-  "EXTERNAL_LIVE",
-  "INTERNAL_DEMO",
-  "NATIVE_APP",
-] as const;
+const KINDS = ["LIVE_HERE", "EXTERNAL", "NATIVE_APP"] as const;
 
 function publicProject(p: ProjectWithMedia) {
   return {
@@ -32,13 +27,13 @@ function publicProject(p: ProjectWithMedia) {
 export const portfolioTools = {
   list_projects: tool({
     description:
-      "List Guy's published portfolio projects. Optionally filter by kind. Use for 'what has he built', 'show his AI systems', etc.",
+      "List Randalf's published portfolio projects. Optionally filter by kind. Use for 'what has he built', 'show his AI systems', etc. Note: whether a project is AI is in its tags, not its kind.",
     inputSchema: z.object({
       kind: z
         .enum(KINDS)
         .optional()
         .describe(
-          "Optional filter: AI_SYSTEM, EXTERNAL_LIVE, INTERNAL_DEMO, NATIVE_APP.",
+          "Optional presentation filter: LIVE_HERE (runs on this site), EXTERNAL (hosted elsewhere), NATIVE_APP (Swift / CoreAI).",
         ),
     }),
     execute: async ({ kind }) => {

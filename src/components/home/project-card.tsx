@@ -8,23 +8,17 @@ const KIND_STYLE: Record<
   string,
   { label: string; chip: string; bar: string; dot: string }
 > = {
-  AI_SYSTEM: {
-    label: "Live AI system",
+  LIVE_HERE: {
+    label: "Live on this site",
     chip: "bg-violet-500/10 text-violet-600 dark:text-violet-300",
     bar: "bg-violet-500",
     dot: "bg-violet-500",
   },
-  EXTERNAL_LIVE: {
-    label: "Live · external",
+  EXTERNAL: {
+    label: "External",
     chip: "bg-sky-500/10 text-sky-600 dark:text-sky-300",
     bar: "bg-sky-500",
     dot: "bg-sky-500",
-  },
-  INTERNAL_DEMO: {
-    label: "Demo",
-    chip: "bg-amber-500/10 text-amber-600 dark:text-amber-300",
-    bar: "bg-amber-500",
-    dot: "bg-amber-500",
   },
   NATIVE_APP: {
     label: "Native app",
@@ -50,7 +44,7 @@ export interface CardProject {
 }
 
 export function ProjectCard({ project }: { project: CardProject }) {
-  const style = KIND_STYLE[project.kind] ?? KIND_STYLE.INTERNAL_DEMO;
+  const style = KIND_STYLE[project.kind] ?? KIND_STYLE.LIVE_HERE;
   const primaryHref = project.liveUrl ?? project.repoUrl ?? null;
   const internal = primaryHref?.startsWith("/") ?? false;
   const ctaLabel = project.liveUrl

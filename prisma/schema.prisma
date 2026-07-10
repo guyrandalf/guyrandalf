@@ -47,11 +47,12 @@ model Session {
   @@map("sessions")
 }
 
+// Presentation axis only: how a project is shown. Topic (AI, Swift, etc.)
+// is carried by tags, so a native app can also be AI without a conflict.
 enum ProjectKind {
-  INTERNAL_DEMO // lives inside this app
-  EXTERNAL_LIVE // hosted elsewhere, linked + auto-thumbnailed
-  NATIVE_APP    // Swift / on-device CoreAI apps, shown via video + screenshots
-  AI_SYSTEM     // the live AI features built into this site
+  LIVE_HERE  // has a live page in this app (AI features + demos)
+  EXTERNAL   // hosted elsewhere, linked + auto-thumbnailed
+  NATIVE_APP // Swift / on-device CoreAI apps, shown via video + screenshots
 }
 
 enum MediaType {

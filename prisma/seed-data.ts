@@ -20,7 +20,7 @@ export const seedProjects: SeedProject[] = [
     title: "Chat with my portfolio",
     summary:
       "Ask anything about my work and get grounded, streamed answers. A tool-calling assistant that reads this site's database live, on Grok or Gemini.",
-    kind: "AI_SYSTEM",
+    kind: "LIVE_HERE",
     tags: ["Tool calling", "Vercel AI SDK", "Grok", "Gemini", "Streaming"],
     featured: true,
     order: 1,
@@ -35,7 +35,7 @@ export const seedProjects: SeedProject[] = [
     title: "AI case-study generator",
     summary:
       "Describe a system or paste a repo URL and get a structured architecture breakdown, generated as typed data.",
-    kind: "AI_SYSTEM",
+    kind: "LIVE_HERE",
     tags: ["Structured output", "Zod", "Grok", "Gemini"],
     featured: false,
     order: 2,
@@ -50,7 +50,7 @@ export const seedProjects: SeedProject[] = [
     title: "Multi-agent decision engine",
     summary:
       "Several specialized AI agents debate and converge on a decision. Hosted separately, added here through the admin with an auto-generated thumbnail.",
-    kind: "EXTERNAL_LIVE",
+    kind: "EXTERNAL",
     tags: ["Multi-agent", "Orchestration", "Decision-making"],
     featured: true,
     order: 3,
@@ -65,7 +65,7 @@ export const seedProjects: SeedProject[] = [
     title: "Referral lead connector",
     summary:
       "A database-backed lead intake and partner-matching demo with discount-code generation. The full-stack fundamentals under the AI work.",
-    kind: "INTERNAL_DEMO",
+    kind: "LIVE_HERE",
     tags: ["Next.js", "Server Actions", "Postgres", "Zod"],
     featured: false,
     order: 4,

@@ -10,12 +10,7 @@ import { mediaDal } from "@/lib/dal/media";
 import { projectsDal } from "@/lib/dal/projects";
 import { uploadToStorage } from "@/lib/storage";
 
-const KINDS = [
-  "AI_SYSTEM",
-  "EXTERNAL_LIVE",
-  "INTERNAL_DEMO",
-  "NATIVE_APP",
-] as const;
+const KINDS = ["LIVE_HERE", "EXTERNAL", "NATIVE_APP"] as const;
 
 function str(v: FormDataEntryValue | null): string {
   return typeof v === "string" ? v.trim() : "";
@@ -83,9 +78,10 @@ export async function saveProject(
     published: formData.get("published") === "on",
   };
 
+  let savedId = id;
   try {
     if (id) await projectsDal.update(id, data);
-    else await projectsDal.create(data);
+    else savedId = (await projectsDal.create(data)).id;
   } catch (err) {
     const message = err instanceof Error ? err.message : "Save failed.";
     if (message.includes("Unique") || message.includes("slug")) {
@@ -96,7 +92,8 @@ export async function saveProject(
 
   revalidatePath("/");
   revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  // New projects land on their own edit page, where media upload lives.
+  redirect(id ? "/admin/projects" : `/admin/projects/${savedId}/edit`);
 }
 
 export async function deleteProject(id: string) {
